@@ -103,6 +103,29 @@ class TicketController extends Controller
 
 
     }
+
+    public function createTicket(Request $request) {
+
+    	$ticket = new Ticket;
+    	$ticket->subject = $request->get("subject");
+    	$ticket->description = $request->get("description");
+    	$ticket->date = $request->get("time");
+    	$ticket->queue_id = 1;
+        $ticket->location = $request->get("location");
+        $ticket->picture = $request->get("picture", "images/a.png");
+        $ticket->user_id = 1;
+        $ticket_create = $ticket->save();
+
+        if ($ticket_create) {
+
+            return redirect()->route("user_page")->with(["success" => "TIcket created successfully"]);
+
+        } else{
+
+            return redirect()->route("user_page")->with(["failure" => "Ticket not created"]);
+
+        }
+    }
     // public function loginSubmit(Request $req) {
     // 	$email = $req->get("username");
     // 	$password = $req->get("password");

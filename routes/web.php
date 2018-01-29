@@ -16,21 +16,15 @@ Route::get('/', "TicketController@index")->name("index");
 Route::post("/", "TicketController@login")->name("login");
 
 
-
+Route::get("/admin/result", "TicketController@result");
+Route::get("/admin","TicketController@admin");
 Route::get("/admin/login", "TicketController@adminLogin")->name("admin_login");
 
-
+Route::get("/user", "TicketController@user")->name("user_page");
 Route::get("/user/register", "TicketController@showRegisterPage");
 Route::post("/user/register", "TicketController@create")->name("create_user");
 
-Route::group(['middleware' => 'auth'], function() {
-
-	Route::get("/user", "TicketController@user")->name("user_page");
-	Route::get("/admin/result", "TicketController@result");
-	Route::get("/admin","TicketController@admin");
-});
-
-
+Route::post("/user/ticket", "TicketController@createTicket")->name("create_ticket");	
 
 Route::get("/layouts", function() {
 	return view("layouts.admin_master");

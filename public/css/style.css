@@ -1,0 +1,148 @@
+                            body {
+                            padding: 0px;
+                            margin: 0px;
+                        }
+                        
+                        .login-content {
+                            margin-top: 150px;
+                        }
+                        
+                        .panel {
+                            border-radius: 0px;
+                            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                        }
+                        
+                        .panel-heading {
+                            background-color: #6f3f6f !important;
+                            border-radius: 0px;
+                        }
+                        
+                        .panel-title {
+                            color: #ffffff;
+                        }
+                        
+                        .btn-login {
+                            background-color: #6f3f6f;
+                            border-radius: 0px;
+                            border: none;
+                        }
+                        
+                        .navbar {
+                            padding: 0px 0px 20px 0px;
+                            background-color: #6f3f6f;
+                            border-bottom: solid 8px #00a859;
+                            /* border-radius: 10px; */
+                        }
+                        
+                        .navbar-text {
+                            color: #ffffff !important;
+                        }
+                        
+                        .right-nav {
+                            margin-top: 10px;
+                        }
+                        
+                        .right-nav a {
+                            color: #ffffff !important;
+                        }
+                        
+                        .right-nav span {
+                            color: #ffffff;
+                            font-size: 15px;
+                        }
+                        
+                        .brand-text {
+                            padding-top: 10px;
+                            text-transform: uppercase;
+                            display: inline-block;
+                            font-family: Impact, Charcoal, sans-serif;
+                            font-size: 30px;
+                            font-weight: bold;
+                            color: #ffffff;
+                        }
+                        
+                        .dump {
+                            /* "Comic Sans MS", cursive, sans-serif */
+                            border-bottom: solid 8px #00a859
+                        }
+                        
+                        .ticket_form .row {
+                            margin-bottom: 20px;
+                        }
+                        
+                        .btn-user {
+                            background-color: #6f3f6f;
+                            border: none;
+                            color: #ffffff;
+                        }
+                        
+                        .block {
+                            width: 100%;
+                            height: 150px;
+                            background: linear-gradient(to bottom, #6f3f6f 60%, #00a859 100%);
+                            display: block;
+                            margin-bottom: 20px;
+                            /* border-bottom: 8px solid #00a859; */
+                        }
+                        
+                        .block h1 {
+                            font-size: 70px;
+                            font-weight: lighter;
+                            color: #ffffff;
+                        }
+                        
+                        .block span {
+                            font-size: 50px;
+                            color: #ffffff;
+                            text-shadow:
+                        }
+                        
+                        .admin-icon {
+                            padding-top: 30px;
+                            padding-left: 30px;
+                        }
+                        
+                        .admin-text {
+                            padding-left: 30px;
+                            margin-top: -20px;
+                        }
+                        
+                        .admin-text h3 {
+                            color: #ffffff;
+                        }
+                        
+                        .queue-tab {
+                            /* padding: 20px;
+	border:  solid 1px #00a859;
+	border-radius: 0px; */
+                            /* background: linear-gradient(to bottom, #6f3f6f 20%, #00a859 100%); */
+                        }
+                        
+                        .queue-nav {
+                            /* border-right:  solid 1px #00a859; */
+                        }
+                        
+                        .btn-admin {
+                            border-radius: 0px;
+                            border: none;
+                        }
+                        
+                        .btn-admin:hover {
+                            border-radius: 0px !important;
+                            background-color: #6f3f6f;
+                            color: #ffffff;
+                        }
+                        
+                        .dropdown-action-state {
+                            padding: 5px 0 0 2px;
+                            min-width: 90px;
+                        }
+                        
+                        .btn-head-action {
+                            padding-top: 20px;
+                        }
+                        
+                        @media (max-width: 992px) {
+                            .block {
+                                height: 170px;
+                            }

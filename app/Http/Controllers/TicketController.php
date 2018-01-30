@@ -17,7 +17,8 @@ class TicketController extends Controller
     }
 
     public function user() {
-    	$passed = ["name" => "User"];
+        $passed["queues"] = Queue::get();
+    	$passed["name"] = "User";
     	// dd($passed);
     	return view("cu_ticket_users", $passed);
     }

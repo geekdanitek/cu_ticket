@@ -82,10 +82,9 @@
 								<div class="row">
 									<div class="col-md-12">
 										<select name="queue" class="form-control">
-											<option value="Electrical_Fault">Electrical Fault</option>
-											<option value="Plumbing_Issue">Plumbing Issue</option>
-											<option value="Pest_Issue">Pest Issue</option>
-											<option value="Bed">Bed</option>
+											@foreach($queues as $queue)
+												<option value="{{ $queue->queue_id }}">{{ $queue->name }}</option>
+											@endforeach
 										</select>
 									</div>
 								</div>

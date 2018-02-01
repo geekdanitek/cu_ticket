@@ -15,9 +15,15 @@
 Route::get('/', "TicketController@index")->name("index");
 Route::post("/", "TicketController@login")->name("login");
 
+Route::get("/admin/tickets/{id}/update", "TicketController@update")->name("update_status");
 
-Route::get("/admin/result", "TicketController@result");
-Route::get("/admin","TicketController@admin");
+Route::get("/admin/tickets/{status?}", "TicketController@tickets")->name("tickets");
+
+
+
+// Route::get("/admin/tickets", "TicketController@tickets")->name("total_tickets");
+
+Route::get("/admin","TicketController@admin")->name("admin_page");
 Route::get("/admin/login", "TicketController@adminLogin")->name("admin_login");
 
 Route::get("/user", "TicketController@user")->name("user_page");

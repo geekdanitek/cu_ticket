@@ -17,7 +17,7 @@ class TicketController extends Controller
     }
 
     public function user() {
-        $passed["queues"] = Queue::get();
+        $passed['queues'] = Queue::get();
     	$passed["name"] = "User";
     	// dd($passed);
     	return view("cu_ticket_users", $passed);
@@ -41,9 +41,28 @@ class TicketController extends Controller
         
     	return view("cu_ticket_admin", $passed);
     }
-    public function result() {
-        $passed = ["name" => "Admin"];
+    public function tickets($status = 'all') {
+
+        $passed['name']= "Admin";
+        $passed['queues'] = Queue::get();
+
+        if($status == 'all'){
+             $passed['status_name'] = $status;
+            $passed['tickets'] = Ticket::get();
+        }else{
+            $passed['tickets'] = Ticket::where('status', $status)->get();
+            $passed['status_name'] = $status;
+
+        }
+
     	return view("cu_ticket_result", $passed);
+    }
+
+    public function ticketStatus() {
+
+        $passed['name'] = "Admin";
+
+        return view("cu_ticket_result", $passed);
     }
 
     public function showRegisterPage() {
@@ -111,7 +130,7 @@ class TicketController extends Controller
     	$ticket->subject = $request->get("subject");
     	$ticket->description = $request->get("description");
     	$ticket->date = $request->get("time");
-    	$ticket->queue_id = 1;
+    	$ticket->queue_id = $request->get("queue");
         $ticket->location = $request->get("location");
         $ticket->picture = $request->get("picture", "images/a.png");
         $ticket->user_id = 1;
@@ -126,6 +145,20 @@ class TicketController extends Controller
             return redirect()->route("user_page")->with(["failure" => "Ticket not created"]);
 
         }
+    }
+
+    public function update($id, Request $request) {
+
+        $update = Ticket::find($id);
+        $update->status = $request->get("status");
+        $update_success = $update->save();
+
+        if($update_success) {
+
+            return redirect()->back();
+        }
+
+
     }
     // public function loginSubmit(Request $req) {
     // 	$email = $req->get("username");

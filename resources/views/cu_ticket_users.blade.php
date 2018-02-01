@@ -64,6 +64,7 @@
 							<form action="{{ route('create_ticket') }}" method="post" class="form-group ticket_form" enctype="multipart/form-data">
 
 								{{csrf_field()}}
+								
 								<div class="row">
 									<div class="col-md-12">
 										<input type="text" name="subject" class="form-control" placeholder="subject" required>
@@ -83,7 +84,7 @@
 									<div class="col-md-12">
 										<select name="queue" class="form-control">
 											@foreach($queues as $queue)
-												<option value="{{ $queue->queue_id }}">{{ $queue->name }}</option>
+												<option value="{{ $queue->id }}">{{ $queue->name }}</option>
 											@endforeach
 										</select>
 									</div>

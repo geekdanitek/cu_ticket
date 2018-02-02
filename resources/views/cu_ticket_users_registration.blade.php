@@ -13,6 +13,26 @@
 									</div>
 								<div class="col-md-4"></div>
 							</div>
+
+							<div class="row">
+								<div class="col-md-12">
+									@if(\Session::has('email_in_db'))
+									<div class="alert alert-warning">
+										{{ \Session::get("email_in_db") }}
+									</div>
+									@endif
+									@if(\Session::has('matric_in_db'))
+									<div class="alert alert-warning">
+										{{ \Session::get("matric_in_db") }}
+									</div>
+									@endif
+									@if(\Session::has('staffID_in_db'))
+									<div class="alert alert-warning">
+										{{ \Session::get("staffID_in_db") }}
+									</div>
+									@endif
+								</div>
+							</div>
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h3 class="panel-title text-center">Registration Page</h3>

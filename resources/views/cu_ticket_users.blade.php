@@ -1,6 +1,6 @@
 @extends("layouts.admin_master")
 
-@section('name', $name)
+@section('name', \Session::get('user')->name)
 
 @section('title', 'User')
 @section('content')
@@ -30,7 +30,7 @@
 	<div id="myTabContent" class="tab-content">
 	
 		
-			<div class="tab-pane fade" id="ios">
+			<div class="tab-pane fade in active" id="ios">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-4"></div>
@@ -113,7 +113,7 @@
 			</div>
 
 
-			<div class="tab-pane fade in active" id="home">
+			<div class="tab-pane fade" id="home">
 				<div class="table-responsive">
 					<table class="table table-hover">
 						<thead>

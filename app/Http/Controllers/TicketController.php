@@ -77,29 +77,54 @@ class TicketController extends Controller
     }
 
     public function create(Request $request) {
-    	
-    	$user = new User;
-    	$user->name = $request->get("name");
-    	$user->email = $request->get("email");
-    	$user->password = bcrypt($request->get("password"));
-    	$user->location = $request->get("location");
-    	$user->type = $request->get("type");
-    	if ($user->matric_no == null) {
-    			$user->matric_no = "";
-    		}else {
-    			$user->matric_no = $request->get("matric_no");
-    		}
-    	if ($user->staff_id == null) {
-    		$user->staff_id =  "";
-    	}else {
-    			$user->staff_id = $request->get("staff_id");
-    	}
-    	//dd($user->matric_no);
-		$user_state = $user->save();
-			if ($user_state) {
 
-					return redirect()->route("user_page");
-			}
+        $email = $request->get("email");
+        $matric_no = $request->get("matric_no");
+        $staff_id = $request->get("staff_id");
+
+        $email_check = User::where('email', $email)->count();
+        if ($email_check > 0) {
+            return redirect()->back()->with(["email_in_db" => "Email exist in Database"]);
+        } 
+
+        if($request->get('type') == 'staff'){
+
+          $email_check = User::where('matric_no', $matric_no)->count();
+            if ($email_check > 0) {
+                return redirect()->back()->with(["matric_in_db" => "Matric number exist in Database"]);
+            } 
+        }else{
+            $email_check = User::where('staff_id', $staff_id)->count();
+            if ($email_check > 0) {
+
+                return redirect()->back()->with(["staffID" => "Staff ID exist in Database"]);
+            } 
+        }
+
+        $user = new User;
+        $user->name = $request->get("name");
+        $user->email = $request->get("email");
+        $user->password = bcrypt($request->get("password"));
+        $user->location = $request->get("location");
+        $user->type = $request->get("type");
+        if ($user->matric_no == null) {
+                $user->matric_no = "";
+            }else {
+                $user->matric_no = $request->get("matric_no");
+            }
+        if ($user->staff_id == null) {
+            $user->staff_id =  "";
+        }else {
+                $user->staff_id = $request->get("staff_id");
+        }
+        //dd($user->matric_no);
+        $user_state = $user->save();
+            if ($user_state) {
+
+                    return redirect()->route("login");
+            }
+    	
+    	
 		
     }
 
@@ -133,7 +158,7 @@ class TicketController extends Controller
     	$ticket->queue_id = $request->get("queue");
         $ticket->location = $request->get("location");
         $ticket->picture = $request->get("picture", "images/a.png");
-        $ticket->user_id = 1;
+        $ticket->user_id =  \Session::get('user')->id;
         $ticket_create = $ticket->save();
 
         if ($ticket_create) {
@@ -160,14 +185,33 @@ class TicketController extends Controller
 
 
     }
-    // public function loginSubmit(Request $req) {
-    // 	$email = $req->get("username");
-    // 	$password = $req->get("password");
+    public function loginSubmit(Request $req) {
+    	$email = $req->get("email");
+    	$password = $req->get("password");
 
-    // 	$user = Auth::attempt(['email' => $email, 'password' => $password]);
+    	$u = Auth::attempt(['email' => $email, 'password' => $password]);
 
-    // 	if(!$user){
-    // 		return response()->with()->back();
-    // 	}
-    // }
+    	if($u){
+            $user = Auth::user();
+            // $user = User::where("email", $email)->first();
+            session(['user' => $user]);
+
+    		return redirect()->route("user_page");
+    	} else {
+
+            return redirect()->back()->with(["login_error" => "Email or password invalid"]);
+        }
+    }
+
+    public function logoutUser() {
+
+
+        $logout =  session()->forget("user");
+
+        if($logout) {
+            
+            return redirect()->route("index");
+        }
+
+    }
 }

@@ -13,12 +13,13 @@
 
 
 Route::get('/', "TicketController@index")->name("index");
-Route::post("/", "TicketController@login")->name("login");
+Route::post("/", "TicketController@loginSubmit")->name("login");
 
 Route::get("/admin/tickets/{id}/update", "TicketController@update")->name("update_status");
 
 Route::get("/admin/tickets/{status?}", "TicketController@tickets")->name("tickets");
 
+Route::get("/user/logout", "TicketController@logoutUser")->name("logout_user");
 
 
 // Route::get("/admin/tickets", "TicketController@tickets")->name("total_tickets");

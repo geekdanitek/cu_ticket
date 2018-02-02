@@ -29,7 +29,7 @@
 									<h3 class="panel-title text-center">Login</h3>
 								</div>
 								<div class="panel-body">
-									<form action="" method="post" class="form-group">
+									<form action="{{route('login')}}" method="post" class="form-group">
 										{{csrf_field()}}
 										<input type="email" class="form-control" placeholder="email" name="email" required>
 										<br />

@@ -1,6 +1,6 @@
 @extends("layouts.admin_master")
 
-@section('name', $name)
+@section('name', \Session::get('user')->name)
 
 @section('title', 'User')
 @section('content')
@@ -30,7 +30,7 @@
 	<div id="myTabContent" class="tab-content">
 	
 		
-			<div class="tab-pane fade" id="ios">
+			<div class="tab-pane fade in active" id="ios">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-4"></div>
@@ -64,6 +64,7 @@
 							<form action="{{ route('create_ticket') }}" method="post" class="form-group ticket_form" enctype="multipart/form-data">
 
 								{{csrf_field()}}
+								
 								<div class="row">
 									<div class="col-md-12">
 										<input type="text" name="subject" class="form-control" placeholder="subject" required>
@@ -83,7 +84,7 @@
 									<div class="col-md-12">
 										<select name="queue" class="form-control">
 											@foreach($queues as $queue)
-												<option value="{{ $queue->queue_id }}">{{ $queue->name }}</option>
+												<option value="{{ $queue->id }}">{{ $queue->name }}</option>
 											@endforeach
 										</select>
 									</div>
@@ -112,7 +113,7 @@
 			</div>
 
 
-			<div class="tab-pane fade in active" id="home">
+			<div class="tab-pane fade" id="home">
 				<div class="table-responsive">
 					<table class="table table-hover">
 						<thead>

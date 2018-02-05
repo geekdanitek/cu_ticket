@@ -1,4 +1,4 @@
-                            body {
+                        body {
                             padding: 0px;
                             margin: 0px;
                         }
@@ -52,7 +52,7 @@
                         }
                         
                         .brand-text {
-                            padding-top: 10px;
+                            padding-top: 20px;
                             text-transform: uppercase;
                             display: inline-block;
                             font-family: Impact, Charcoal, sans-serif;
@@ -98,17 +98,22 @@
                         }
                         
                         .admin-icon {
+                            /* text-align: center; */
                             padding-top: 30px;
                             padding-left: 30px;
                         }
-                        
+                        .admin-num {
+                            /* text-align: center; */
+                        }
                         .admin-text {
-                            padding-left: 30px;
-                            margin-top: -20px;
+                            padding-left: 25px;
+                            margin-top: -10px;
                         }
                         
                         .admin-text h3 {
                             color: #ffffff;
+                            font-size: 19px;
+
                         }
                         
                         .queue-tab {
@@ -141,7 +146,17 @@
                         .btn-head-action {
                             padding-top: 20px;
                         }
-                        
+                        .ticket-name {
+                            
+                            text-transform: capitalize;
+                        }
+
+                        .ticket-pag {
+                            margin-top: 20px;
+                        }
+                        .logout-btn {
+                            margin-top: 15px;
+                        }
                         @media (max-width: 992px) {
                             .block {
                                 height: 170px;

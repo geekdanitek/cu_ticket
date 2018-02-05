@@ -18,8 +18,7 @@ class TicketController extends Controller
 
     public function user()
     {
-        dd(Auth::user());
-        $passed["queues"] = Queue::get();
+        $passed['queues'] = Queue::get();
         $passed["name"] = "User";
         // dd($passed);
         return view("cu_ticket_users", $passed);
@@ -44,9 +43,26 @@ class TicketController extends Controller
         
         return view("cu_ticket_admin", $passed);
     }
-    public function result()
+    public function tickets($status = 'all')
     {
-        $passed = ["name" => "Admin"];
+        $passed['name']= "Admin";
+        $passed['queues'] = Queue::get();
+
+        if ($status == 'all') {
+            $passed['status_name'] = $status;
+            $passed['tickets'] = Ticket::get();
+        } else {
+            $passed['tickets'] = Ticket::where('status', $status)->get();
+            $passed['status_name'] = $status;
+        }
+
+        return view("cu_ticket_result", $passed);
+    }
+
+    public function ticketStatus()
+    {
+        $passed['name'] = "Admin";
+
         return view("cu_ticket_result", $passed);
     }
 
@@ -64,6 +80,27 @@ class TicketController extends Controller
 
     public function create(Request $request)
     {
+        $email = $request->get("email");
+        $matric_no = $request->get("matric_no");
+        $staff_id = $request->get("staff_id");
+
+        $email_check = User::where('email', $email)->count();
+        if ($email_check > 0) {
+            return redirect()->back()->with(["email_in_db" => "Email exist in Database"]);
+        }
+
+        if ($request->get('type') == 'staff') {
+            $email_check = User::where('matric_no', $matric_no)->count();
+            if ($email_check > 0) {
+                return redirect()->back()->with(["matric_in_db" => "Matric number exist in Database"]);
+            }
+        } else {
+            $email_check = User::where('staff_id', $staff_id)->count();
+            if ($email_check > 0) {
+                return redirect()->back()->with(["staffID" => "Staff ID exist in Database"]);
+            }
+        }
+
         $user = new User;
         $user->name = $request->get("name");
         $user->email = $request->get("email");
@@ -83,7 +120,7 @@ class TicketController extends Controller
         //dd($user->matric_no);
         $user_state = $user->save();
         if ($user_state) {
-            return redirect()->route("user_page");
+            return redirect()->route("login");
         }
     }
 
@@ -114,10 +151,10 @@ class TicketController extends Controller
         $ticket->subject = $request->get("subject");
         $ticket->description = $request->get("description");
         $ticket->date = $request->get("time");
-        $ticket->queue_id = 1;
+        $ticket->queue_id = $request->get("queue");
         $ticket->location = $request->get("location");
         $ticket->picture = $request->get("picture", "images/a.png");
-        $ticket->user_id = 1;
+        $ticket->user_id =  \Session::get('user')->id;
         $ticket_create = $ticket->save();
 
         if ($ticket_create) {
@@ -126,14 +163,41 @@ class TicketController extends Controller
             return redirect()->route("user_page")->with(["failure" => "Ticket not created"]);
         }
     }
-    // public function loginSubmit(Request $req) {
-    // 	$email = $req->get("username");
-    // 	$password = $req->get("password");
 
-    // 	$user = Auth::attempt(['email' => $email, 'password' => $password]);
+    public function update($id, Request $request)
+    {
+        $update = Ticket::find($id);
+        $update->status = $request->get("status");
+        $update_success = $update->save();
 
-    // 	if(!$user){
-    // 		return response()->with()->back();
-    // 	}
-    // }
+        if ($update_success) {
+            return redirect()->back();
+        }
+    }
+    public function loginSubmit(Request $req)
+    {
+        $email = $req->get("email");
+        $password = $req->get("password");
+
+        $u = Auth::attempt(['email' => $email, 'password' => $password]);
+
+        if ($u) {
+            $user = Auth::user();
+            // $user = User::where("email", $email)->first();
+            session(['user' => $user]);
+
+            return redirect()->route("user_page");
+        } else {
+            return redirect()->back()->with(["login_error" => "Email or password invalid"]);
+        }
+    }
+
+    public function logoutUser()
+    {
+        $logout =  session()->forget("user");
+
+        if ($logout) {
+            return redirect()->route("index");
+        }
+    }
 }

@@ -6,31 +6,34 @@ use Illuminate\Http\Request;
 use App\Ticket;
 use App\Queue;
 use App\User;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class TicketController extends Controller
 {
     //
-    public function index () {
-
-    	return view("cu_ticket_index");
+    public function index()
+    {
+        return view("cu_ticket_index");
     }
 
-    public function user() {
+    public function user()
+    {
+        dd(Auth::user());
         $passed["queues"] = Queue::get();
-    	$passed["name"] = "User";
-    	// dd($passed);
-    	return view("cu_ticket_users", $passed);
+        $passed["name"] = "User";
+        // dd($passed);
+        return view("cu_ticket_users", $passed);
     }
 
-    public function adminLogin() {
-    	
-    	return view("cu_ticket_admin_login");
+    public function adminLogin()
+    {
+        return view("cu_ticket_admin_login");
     }
 
-    public function admin() {
-    	$passed['tickets_table'] = Ticket::get();
-    	$passed['queues'] = Queue::get();
+    public function admin()
+    {
+        $passed['tickets_table'] = Ticket::get();
+        $passed['queues'] = Queue::get();
 
         $passed['total_amount'] = Ticket::count();
         $passed['open_amount'] = Ticket::where('status', 'new')->count();
@@ -39,14 +42,16 @@ class TicketController extends Controller
         $passed['finished_amount'] = Ticket::where('status', 'finished')->count();
         $passed['name'] = "Admin";
         
-    	return view("cu_ticket_admin", $passed);
+        return view("cu_ticket_admin", $passed);
     }
-    public function result() {
+    public function result()
+    {
         $passed = ["name" => "Admin"];
-    	return view("cu_ticket_result", $passed);
+        return view("cu_ticket_result", $passed);
     }
 
-    public function showRegisterPage() {
+    public function showRegisterPage()
+    {
         
         // $name = $request->get("email");
         // $all = $request->all();
@@ -57,74 +62,68 @@ class TicketController extends Controller
         return view("cu_ticket_users_registration", $passed);
     }
 
-    public function create(Request $request) {
-    	
-    	$user = new User;
-    	$user->name = $request->get("name");
-    	$user->email = $request->get("email");
-    	$user->password = bcrypt($request->get("password"));
-    	$user->location = $request->get("location");
-    	$user->type = $request->get("type");
-    	if ($user->matric_no == null) {
-    			$user->matric_no = "";
-    		}else {
-    			$user->matric_no = $request->get("matric_no");
-    		}
-    	if ($user->staff_id == null) {
-    		$user->staff_id =  "";
-    	}else {
-    			$user->staff_id = $request->get("staff_id");
-    	}
-    	//dd($user->matric_no);
-		$user_state = $user->save();
-			if ($user_state) {
-
-					return redirect()->route("user_page");
-			}
-		
+    public function create(Request $request)
+    {
+        $user = new User;
+        $user->name = $request->get("name");
+        $user->email = $request->get("email");
+        $user->password = bcrypt($request->get("password"));
+        $user->location = $request->get("location");
+        $user->type = $request->get("type");
+        if ($user->matric_no == null) {
+            $user->matric_no = "";
+        } else {
+            $user->matric_no = $request->get("matric_no");
+        }
+        if ($user->staff_id == null) {
+            $user->staff_id =  "";
+        } else {
+            $user->staff_id = $request->get("staff_id");
+        }
+        //dd($user->matric_no);
+        $user_state = $user->save();
+        if ($user_state) {
+            return redirect()->route("user_page");
+        }
     }
 
-    public function login(Request $request) {
-    	$email = $request->get("email");
-    	$password = $request->get("password");
-    	// $email_check = User::where(["email" => $email, "passed"])->count();
-		$user = Auth::attempt(['email' => $email, 'password' => $password]);
-		// $u = User::where("email", $email)->first();
+    public function login(Request $request)
+    {
+        $email = $request->get("email");
+        $password = $request->get("password");
+        // $email_check = User::where(["email" => $email, "passed"])->count();
+        $user = Auth::attempt(['email' => $email, 'password' => $password]);
+        // $u = User::where("email", $email)->first();
 
-		// Auth::login($u);
+        
+        // dd(Auth::check(), Auth::user());
 
-    	if($user) {
-    		// dd(\Auth::user());
-    		return redirect()->route("user_page");
-    	} else {
+        // Auth::login($u);
 
-    		return redirect()->route("index")->with(["login_error"=>"Username or password invalid"]);
-    	}
-
-
-
+        if ($user) {
+            // dd(\Auth::user());
+            return redirect()->intended("user");
+        } else {
+            return redirect()->route("index")->with(["login_error"=>"Username or password invalid"]);
+        }
     }
 
-    public function createTicket(Request $request) {
-
-    	$ticket = new Ticket;
-    	$ticket->subject = $request->get("subject");
-    	$ticket->description = $request->get("description");
-    	$ticket->date = $request->get("time");
-    	$ticket->queue_id = 1;
+    public function createTicket(Request $request)
+    {
+        $ticket = new Ticket;
+        $ticket->subject = $request->get("subject");
+        $ticket->description = $request->get("description");
+        $ticket->date = $request->get("time");
+        $ticket->queue_id = 1;
         $ticket->location = $request->get("location");
         $ticket->picture = $request->get("picture", "images/a.png");
         $ticket->user_id = 1;
         $ticket_create = $ticket->save();
 
         if ($ticket_create) {
-
             return redirect()->route("user_page")->with(["success" => "TIcket created successfully"]);
-
-        } else{
-
+        } else {
             return redirect()->route("user_page")->with(["failure" => "Ticket not created"]);
-
         }
     }
     // public function loginSubmit(Request $req) {

@@ -29,7 +29,7 @@
 									<h3 class="panel-title text-center">Login</h3>
 								</div>
 								<div class="panel-body">
-									<form action="" method="post" class="form-group">
+									<form action="{{route('login')}}" method="post" class="form-group">
 										{{csrf_field()}}
 										<input type="email" class="form-control" placeholder="email" name="email" required>
 										<br />
@@ -40,7 +40,7 @@
 									</form>
 								</div>
 						    </div>
-						  <a href="{{ route("admin_login") }}" class="text-center"><button class="btn-primary btn-login">admin log-in</button></a>
+						  <a href="{{ route("admin_login") }}" class="text-center"><button class="btn btn-primary btn-login">admin log-in</button></a>
 					</div>
 						<div class="col-md-4"></div>
 				</div>

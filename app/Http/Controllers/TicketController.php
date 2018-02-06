@@ -128,7 +128,7 @@ class TicketController extends Controller
         $user_state = $user->save();
             if ($user_state) {
 
-                    return redirect()->route("login");
+                    return redirect()->route("login")->with(["reg_success" => "Registration successfull"]);
             }
     	
     	

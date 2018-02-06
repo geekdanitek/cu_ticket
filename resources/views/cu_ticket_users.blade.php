@@ -35,7 +35,7 @@
 			@endif
 		</div>
 	</div>
-	
+
 	<div class="row">
 		<div class="col-md-6">
 			<h3 class="pull-left">Your Tickets</h3>
@@ -90,21 +90,25 @@
 								
 								<div class="row">
 									<div class="col-md-12">
-										<input type="text" name="subject" class="form-control" placeholder="subject" required>
+										<label for="subject" class="pull-left">Subject</label>
+										<input type="text" name="subject" class="form-control" required>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12">
-										<textarea class="form-control" rows="3" name="description" placeholder="Description" required></textarea>
+										<label for="description" class="pull-left">Description</label>
+										<textarea class="form-control" rows="3" name="description" required></textarea>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12">
-										<input type="date" name="time" class="form-control" placeholder="Time" required>
+										<label for="date" class="pull-left">Date Available</label>
+										<input type="date" name="time" class="form-control" required>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12">
+										<label for="queues" class="pull-left">Queues</label>
 										<select name="queue" class="form-control">
 											@foreach($queues as $queue)
 											<option value="{{ $queue->id }}">{{ $queue->name }}</option>
@@ -114,11 +118,13 @@
 								</div>
 								<div class="row">
 									<div class="col-md-12">
-										<input type="text" name="location" class="form-control" placeholder="Location" required>
+										<label for="location" class="pull-left">Location</label>
+										<input type="text" name="location" class="form-control" required>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12">
+										<label for="picture" class="pull-left">Picture</label>
 										<input type="file" name="picture" class="form-control">
 									</div>
 								</div>
@@ -156,7 +162,7 @@
 								Description
 							</th>
 							<th>
-								Time
+								Date Available
 							</th>
 							<th>
 								Queue

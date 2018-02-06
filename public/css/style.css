@@ -4,7 +4,8 @@
                         }
                         
                         .login-content {
-                            margin-top: 150px;
+                            margin-top: 90px;
+
                         }
                         
                         .panel {
@@ -25,6 +26,7 @@
                             background-color: #6f3f6f;
                             border-radius: 0px;
                             border: none;
+
                         }
                         
                         .navbar {
@@ -86,7 +88,7 @@
                         }
                         
                         .block h1 {
-                            font-size: 70px;
+                            font-size: 50px;
                             font-weight: lighter;
                             color: #ffffff;
                         }
@@ -157,6 +159,8 @@
                         .logout-btn {
                             margin-top: 15px;
                         }
+                    
+
                         @media (max-width: 992px) {
                             .block {
                                 height: 170px;

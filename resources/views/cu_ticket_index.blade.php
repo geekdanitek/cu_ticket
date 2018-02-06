@@ -17,13 +17,33 @@
 							<div class="row">
 								<div class="col-md-12">
 									@if(\Session::has('login_error'))
-									<div class="alert alert-warning">
+									<div class="alert alert-warning alert-dismissible" role="alert">
+										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 										{{ \Session::get("login_error") }}
+									</div>
+									@endif
+
+									@if(\Session::has('not_logged_in'))
+									<div class="alert alert-warning alert-dismissible" role="alert">
+										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										{{ \Session::get("not_logged_in") }}
+									</div>
+									@endif
+
+
+									@if(\Session::has('logout_success'))
+									<div class="alert alert-success alert-dismissible" role="alert">
+										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										{{ \Session::get('logout_success') }}
 									</div>
 									@endif
 								</div>
 							</div>
-
+							<div class="row">
+								<div class="col-md-12">
+									<h3 class="text-center">CU Ticket Registration System</h3>
+								</div>
+							</div>
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h3 class="panel-title text-center">Login</h3>
@@ -40,7 +60,13 @@
 									</form>
 								</div>
 						    </div>
-						  <a href="{{ route("admin_login") }}" class="text-center"><button class="btn btn-primary btn-login">admin log-in</button></a>
+						    <div class="row">
+						    	<div class="col-md-12">
+						    		<div class="text-center">
+							  			<a href="{{ route('register') }}" class="text-center"><button class="btn btn-link">Don't have an account? Register here</button></a>
+							  		</div>
+								</div>
+							</div>
 					</div>
 						<div class="col-md-4"></div>
 				</div>

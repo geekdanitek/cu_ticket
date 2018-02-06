@@ -18,6 +18,12 @@ class TicketController extends Controller
 
     public function user()
     {
+        if (!session()->has('user')) {
+            return redirect()->route("index")->with(["not_logged_in" => "Pls Login In"]);
+        }
+
+
+        $passed['users_ticket'] = Ticket::where("user_id", \Session::get('user')->id)->orderBy("created_at", "DESC")->get();
         $passed['queues'] = Queue::get();
         $passed["name"] = "User";
         // dd($passed);
@@ -194,10 +200,8 @@ class TicketController extends Controller
 
     public function logoutUser()
     {
-        $logout =  session()->forget("user");
+        session()->forget("user");
 
-        if ($logout) {
-            return redirect()->route("index");
-        }
+        return redirect()->route("index")->with(["logout_success" => "Log Out successfull"]);
     }
 }

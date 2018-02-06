@@ -28,8 +28,7 @@ Route::get("/admin", "TicketController@admin")->name("admin_page");
 Route::get("/admin/login", "TicketController@adminLogin")->name("admin_login");
 
 Route::get("/user", "TicketController@user")->name("user_page");
-
-Route::get("/user/register", "TicketController@showRegisterPage");
+Route::get("/user/register", "TicketController@showRegisterPage")->name("register");
 Route::post("/user/register", "TicketController@create")->name("create_user");
 
 Route::post("/user/ticket", "TicketController@createTicket")->name("create_ticket");

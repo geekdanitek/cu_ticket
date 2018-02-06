@@ -146,7 +146,7 @@
 											Description
 										</th>
 										<th>
-											Time
+											Date Available
 										</th>
 										<th>
 											Queue
@@ -164,7 +164,17 @@
 								</thead>
 								<tbody>
 									@foreach($queue->tickets as $tickets)
-									<tr>
+									<tr class="
+									@if($tickets->status == 'rejected')
+										danger
+									@endif
+									@if($tickets->status == 'inprogress')
+										warning
+									@endif
+									@if($tickets->status == 'finished')
+										success
+									@endif
+									">
 										<td>
 											{{$tickets->subject}}
 										</td>

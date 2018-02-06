@@ -119,7 +119,7 @@
 								<div class="row">
 									<div class="col-md-12">
 										<label for="location" class="pull-left">Location</label>
-										<input type="text" name="location" class="form-control" required>
+										<input type="text" name="location" class="form-control" value="{{ \Session::get('user')->location }}" required>
 									</div>
 								</div>
 								<div class="row">

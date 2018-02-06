@@ -37,7 +37,7 @@ class TicketController extends Controller
     }
 
     public function admin() {
-    	$passed['tickets_table'] = Ticket::get();
+    	$passed['tickets_table'] = Ticket::orderBy("created_at", "ASC")->get();
     	$passed['queues'] = Queue::get();
 
         $passed['total_amount'] = Ticket::count();

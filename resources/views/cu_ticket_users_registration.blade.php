@@ -54,15 +54,15 @@
 										<br />
 										<label for="location">Location</label>
 										<input type="text" class="form-control" name="location" required>
-										<br />
-										<select name="type" class="form-control">
+                                        <br />
+                                        <label for="location">Which are you?</label>
+										<select name="type" class="form-control" id="type_select">
 											<option value="student">Student</option>
 											<option value="staff">Staff</option>
 										</select>
 										<br />
-										<input type="text" class="form-control" placeholder="Matric Number" name="matric_no">
-										<br />
-										<input type="text" class="form-control" placeholder="Staff Identity" name="staff_id">
+										<input type="text" class="form-control" placeholder="Matric Number" name="matric_no" id="studentInput">
+										<input type="text" class="form-control" style="display: none" placeholder="Staff Identity" name="staff_id" id="staffInput">
 										<br />
 										<input type="submit" class="btn btn-primary btn-login" value="Register">
 										<small class="text-right"><a href="#">Forgot Password</a></small>
@@ -75,4 +75,24 @@
 				</div>
 			</div>
 		
-		@endsection
+        @endsection
+        
+        @section('js')
+            <script>
+                
+                $(document).ready(function(){
+                    $("#type_select").on('change', function(){
+                        var select_type = $(this).val();
+                        
+                        if(select_type === 'student'){
+                            $("#studentInput").show();
+                            $("#staffInput").hide();
+                        }else{
+                            $("#studentInput").hide();
+                            $("#staffInput").show();
+                        }
+                    })
+                });
+
+            </script>
+        @endsection

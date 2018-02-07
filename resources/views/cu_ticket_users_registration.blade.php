@@ -55,12 +55,15 @@
 										<label for="location">Location</label>
 										<input type="text" class="form-control" name="location" required>
 										<br />
-										<select name="type" class="form-control">
-											<option value="student">Student</option>
-											<option value="staff">Staff</option>
+										<select name="type" class="form-control" onchange="fun()" id="messagetype">
+											<option disabled="">Select Type</option>
+											<option value="student" class="clicked_stu">Student</option>
+											<option value="staff" class="clicked_staff">Staff</option>
 										</select>
 										<br />
-										<input type="text" class="form-control" placeholder="Matric Number" name="matric_no">
+										<div id="mobileno_textbox">
+										<input type="text" class="form-control" style="display: none;" id="mobileno" placeholder="Matric Number" name="matric_no">
+										</div>
 										<br />
 										<input type="text" class="form-control" placeholder="Staff Identity" name="staff_id">
 										<br />
@@ -75,4 +78,18 @@
 				</div>
 			</div>
 		
+		@endsection
+		@section('js')
+		<script type="text/javascript">
+		
+		function fun() {
+			var select_status = $("#messagetype").val();
+			if(select_status == 'student') {
+				$("#mobileno_textbox").show();
+			}
+			else {
+				$("#mobileno_textbox").hide();
+			}
+		}
+		</script>
 		@endsection

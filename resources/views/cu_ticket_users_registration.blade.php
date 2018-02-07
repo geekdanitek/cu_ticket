@@ -54,6 +54,7 @@
 										<br />
 										<label for="location">Location</label>
 										<input type="text" class="form-control" name="location" required>
+<<<<<<< HEAD
                                         <br />
                                         <label for="location">Which are you?</label>
 										<select name="type" class="form-control" id="type_select">
@@ -63,6 +64,20 @@
 										<br />
 										<input type="text" class="form-control" placeholder="Matric Number" name="matric_no" id="studentInput">
 										<input type="text" class="form-control" style="display: none" placeholder="Staff Identity" name="staff_id" id="staffInput">
+=======
+										<br />
+										<select name="type" class="form-control" onchange="fun()" id="messagetype">
+											<option disabled="">Select Type</option>
+											<option value="student" class="clicked_stu">Student</option>
+											<option value="staff" class="clicked_staff">Staff</option>
+										</select>
+										<br />
+										<div id="mobileno_textbox">
+										<input type="text" class="form-control" style="display: none;" id="mobileno" placeholder="Matric Number" name="matric_no">
+										</div>
+										<br />
+										<input type="text" class="form-control" placeholder="Staff Identity" name="staff_id">
+>>>>>>> 51dee792dbcccef9cd10dd840f1dfb3a03ef2dc0
 										<br />
 										<input type="submit" class="btn btn-primary btn-login" value="Register">
 										<small class="text-right"><a href="#">Forgot Password</a></small>
@@ -75,6 +90,7 @@
 				</div>
 			</div>
 		
+<<<<<<< HEAD
         @endsection
         
         @section('js')
@@ -96,3 +112,20 @@
 
             </script>
         @endsection
+=======
+		@endsection
+		@section('js')
+		<script type="text/javascript">
+		
+		function fun() {
+			var select_status = $("#messagetype").val();
+			if(select_status == 'student') {
+				$("#mobileno_textbox").show();
+			}
+			else {
+				$("#mobileno_textbox").hide();
+			}
+		}
+		</script>
+		@endsection
+>>>>>>> 51dee792dbcccef9cd10dd840f1dfb3a03ef2dc0

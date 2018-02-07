@@ -43,16 +43,17 @@
 								<div class="panel-body">
 									<form action="{{ route('create_user') }}" method="POST" class="form-group">
 										{{csrf_field()}}
-										
-										<input type="text" class="form-control" placeholder="Name" name="name" required>
+										<label for="Name">Name</label>
+										<input type="text" class="form-control" name="name" required>
 										<br />
-
-										<input type="email" class="form-control" placeholder="Email" name="email" required>
+										<label for="Email">Email</label>
+										<input type="email" class="form-control" name="email" required>
 										<br />
-									
-										<input type="password" class="form-control" placeholder="Password" name="password" required>
+										<LABEL for="password">Password</LABEL>
+										<input type="password" class="form-control" name="password" required>
 										<br />
-										<input type="text" class="form-control" placeholder="Location" name="location" required>
+										<label for="location">Location</label>
+										<input type="text" class="form-control" name="location" required>
 										<br />
 										<select name="type" class="form-control">
 											<option value="student">Student</option>

@@ -37,6 +37,13 @@
 										{{ \Session::get('logout_success') }}
 									</div>
 									@endif
+
+									@if(\Session::has('reg_success'))
+									<div class="alert alert-success alert-dismissible" role="alert">
+										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										{{ \Session::get('reg_success') }}
+									</div>
+									@endif
 								</div>
 							</div>
 							<div class="row">
@@ -51,9 +58,11 @@
 								<div class="panel-body">
 									<form action="{{route('login')}}" method="post" class="form-group">
 										{{csrf_field()}}
-										<input type="email" class="form-control" placeholder="email" name="email" required>
+										<label for="email">Email</label>
+										<input type="email" class="form-control" name="email" required>
 										<br />
-										<input type="password" class="form-control" placeholder="password" name="password" required>
+										<label for="password">Password</label>
+										<input type="password" class="form-control" name="password" required>
 										<br />
 										<input type="submit" class="btn btn-primary btn-login" value="Login">
 										<small class="text-right"><a href="#">Forgot Password</a></small>

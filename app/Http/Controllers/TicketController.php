@@ -35,10 +35,9 @@ class TicketController extends Controller
         return view("cu_ticket_admin_login");
     }
 
-    public function admin()
-    {
-        $passed['tickets_table'] = Ticket::get();
-        $passed['queues'] = Queue::get();
+    public function admin() {
+    	$passed['tickets_table'] = Ticket::orderBy("created_at", "ASC")->get();
+    	$passed['queues'] = Queue::get();
 
         $passed['total_amount'] = Ticket::count();
         $passed['open_amount'] = Ticket::where('status', 'new')->count();
@@ -125,9 +124,19 @@ class TicketController extends Controller
         }
         //dd($user->matric_no);
         $user_state = $user->save();
+<<<<<<< HEAD
         if ($user_state) {
             return redirect()->route("login");
         }
+=======
+            if ($user_state) {
+
+                    return redirect()->route("login")->with(["reg_success" => "Registration successfull"]);
+            }
+    	
+    	
+		
+>>>>>>> 3f96e81af95efed6da0d7e9b657511cf073b65fc
     }
 
     public function login(Request $request)

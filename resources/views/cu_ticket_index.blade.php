@@ -7,11 +7,11 @@
 					<div class="col-md-4"></div>
 						<div class="login-content col-md-4">
 							<div class="row">
-								<div class="col-md-4"></div>
-									<div class="col-md-4">
+								<div class="col-md-4 col-xs-4"></div>
+									<div class="col-md-4 col-xs-4">
 										<img src="{{ url('images/CU_LOGO.jpg') }}" class="img-responsive text-center">
 									</div>
-								<div class="col-md-4"></div>
+								<div class="col-md-4 col-xs-4"></div>
 							</div>
 
 							<div class="row">

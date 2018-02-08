@@ -1,5 +1,5 @@
 @extends('layouts.admin_master')
-@section('name', $name)
+@section('name', \Session::get('admin_user')->name)
 @section('title', 'Admin')
 @section('content')
 <div class="container">
@@ -136,7 +136,7 @@
 						</div>
 						@foreach($queues as $queue)
 						<div class="table-responsive queue_tables" id="table_{{$queue->name}}">
-							<table class="table table-hover table-bordered">
+							<table class="table table-hover table-bordered myTable">
 								<thead>
 									<tr>
 										<th>

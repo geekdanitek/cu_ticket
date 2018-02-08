@@ -13,6 +13,7 @@ class TicketController extends Controller
     //
     public function index()
     {
+
         return view("cu_ticket_index");
     }
 
@@ -32,10 +33,38 @@ class TicketController extends Controller
 
     public function adminLogin()
     {
+    
         return view("cu_ticket_admin_login");
     }
 
+    public function adminLoginSubmit(Request $request) {
+
+        $email = $request->get("email");
+        $password = $request->get("password");
+
+        $u = Auth::guard('admin')->attempt(['email' => $email, 'password' => $password]);
+
+        if($u) {
+
+            $user = Auth::guard('admin')->user();
+            session()->forget('user');
+            session(['admin_user' => $user]);
+
+            return redirect()->route('admin_page');
+        }
+        else {
+
+            return redirect()->route('admin_login')->with(["login_error" => "Email or password invalid"]);
+        }
+
+    }
+
     public function admin() {
+        if(!session()->has('admin_user') == true) {
+
+            return redirect()->route('admin_login')->with(["not_logged_in" => "Pls Login In"]);
+        }
+
         $passed['tickets_table'] = Ticket::orderBy("created_at", "ASC")->get();
         $passed['queues'] = Queue::get();
 
@@ -189,6 +218,7 @@ class TicketController extends Controller
         if ($u) {
             $user = Auth::user();
             // $user = User::where("email", $email)->first();
+            session()->forget('admin_user');
             session(['user' => $user]);
 
             return redirect()->route("user_page");
@@ -197,10 +227,23 @@ class TicketController extends Controller
         }
     }
 
-    public function logoutUser()
+    public function logout()
     {
-        session()->forget("user");
+        if(session()->has('user') == true) {
 
-        return redirect()->route("index")->with(["logout_success" => "Log Out successfull"]);
+            session()->forget('user');
+
+            return redirect()->route("index")->with(["logout_success" => "Log Out Successfull"]);
+        }
+
+        if(session()->has('admin_user') == true) {
+
+            session()->forget("admin_user");
+
+            return redirect()->route("admin_login")->with(["logout_success" => "Log Out Successfull"]);
+    
+        }
+        
+       
     }
 }

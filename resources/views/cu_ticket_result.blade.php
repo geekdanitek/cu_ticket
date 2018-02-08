@@ -12,11 +12,14 @@
                           </div>
                           <div class="col-md-4 text-right">
                              <div class="btn-group btn-head-action">
-                                    <button type="button" class="btn btn-primary"><span id="queue-text">All Queues</span></button>
-                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <span id="queue-text">All Queues</span> <span class="caret"></span>
+                                    </button>
+                                    <!-- <button type="button" class="btn btn-primary"><span id="queue-text">All Queues</span></button> -->
+                                   <!--  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span class="caret"></span>
                                         <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
+                                    </button> -->
                                     <ul class="dropdown-menu">
                                         <li class="filter" data-link="All"><a>All</a></li>
                                         @foreach($queues as $queue)
@@ -30,7 +33,7 @@
                     </div>
                     <hr  style="border: solid 1px #6f3f6f;" />
                     <div class="table-responsive table-all" id="table_All">
-                        <table class="table table-bordered table-hover">
+                        <table class="table table-bordered table-hover myTable">
                             <thead>
                                 <tr>
                                     <th class="col-md-2">
@@ -85,11 +88,16 @@
                                        </td>
                                        <td>
                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-danger">Change Status</button>
-                                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                         <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <span>Change Status</span> <span class="caret"></span>
+                                    </button>
+
+                                            <!-- <button type="button" class="btn btn-danger">Change Status</button> -->
+                                            <!-- <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <span class="caret"></span>
                                                 <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
+                                            </button> -->
                                             <ul class="dropdown-menu dropdown-action-state">
                                                 <li><a href="{{route('update_status', ['id' => $ticket->id])}}?status=finished">Accept</a></li>
                                                 <li><a href="{{route('update_status', ['id' => $ticket->id])}}?status=inprogress">Inprogress</a></li>
@@ -107,7 +115,7 @@
                                 @foreach($queues as $queue)
 
                 <div class="table-responsive queue_tables" id="table_{{$queue->name}}">
-                    <table class="table table-hover table-bordered">
+                    <table class="table table-hover table-bordered myTable">
                         <thead>
                             <tr>
                                 <th class="col-md-2">
@@ -170,11 +178,15 @@
                                     </td>
                                     <td>
                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-danger">Change Status</button>
-                                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                         <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span>Change Status</span> <span class="caret"></span>
+                                        </button>
+                                            <!-- <button type="button" class="btn btn-danger">Change Status</button> -->
+                                            <!-- <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <span class="caret"></span>
                                                 <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
+                                            </button> -->
                                             <ul class="dropdown-menu dropdown-action-state">
                                                 <li><a href="{{route('update_status', ['id' => $tickets->id])}}?status=finished">Accept</a></li>
                                                 <li><a href="{{route('update_status', ['id' => $tickets->id])}}?status=inprogress">Inprogress</a></li>

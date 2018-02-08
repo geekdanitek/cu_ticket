@@ -16,7 +16,14 @@
 								
 					<li><a href="#"><span class="glyphicon glyphicon-user right-nav"></span>&nbsp; Welcome, @yield('name')</a></li>
 						@if(session()->has('user') == true)
-						<a class="btn btn-primary navbar-btn logout-btn" href="{{route('logout_user')}}">
+						<a class="btn btn-primary btn-xs navbar-btn logout-btn" href="{{route('logout')}}">
+							
+								<span class="glyphicon glyphicon-log-out"></span> Logout
+						
+						</a>
+						@endif
+						@if(session()->has('admin_user') == true)
+						<a class="btn btn-primary btn-xs navbar-btn logout-btn" href="{{route('logout')}}">
 							
 								<span class="glyphicon glyphicon-log-out"></span> Logout
 						

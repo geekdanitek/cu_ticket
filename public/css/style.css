@@ -157,7 +157,9 @@
                             margin-top: 20px;
                         }
                         .logout-btn {
-                            margin-top: 15px;
+
+                            margin-top: 20px !important;
+
                         }
                     
 

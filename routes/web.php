@@ -19,13 +19,14 @@ Route::get("/admin/tickets/{id}/update", "TicketController@update")->name("updat
 
 Route::get("/admin/tickets/{status?}", "TicketController@tickets")->name("tickets");
 
-Route::get("/user/logout", "TicketController@logoutUser")->name("logout_user");
+Route::get("/user/logout", "TicketController@logout")->name("logout");
 
 
 // Route::get("/admin/tickets", "TicketController@tickets")->name("total_tickets");
 
 Route::get("/admin", "TicketController@admin")->name("admin_page");
 Route::get("/admin/login", "TicketController@adminLogin")->name("admin_login");
+Route::post("/admin/login", "TicketController@adminLoginSubmit");
 
 Route::get("/user", "TicketController@user")->name("user_page");
 Route::get("/user/register", "TicketController@showRegisterPage")->name("register");

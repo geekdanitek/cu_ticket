@@ -162,7 +162,17 @@
 
                         }
                     
+                        .left-tab-button {
+                           
+                            margin-bottom: 10px;
+                        }
 
+                          .left-tab-button button {
+                            /* background: linear-gradient(to bottom, #6f3f6f 60%, #00a859 100%); */
+                            background-color: #00a859;
+                            border-width: 0px;
+                           
+                        }
                         @media (max-width: 992px) {
                             .block {
                                 height: 170px;

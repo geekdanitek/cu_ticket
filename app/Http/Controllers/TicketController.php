@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Ticket;
 use App\Queue;
 use App\User;
+use App\AdminUser;
 use Illuminate\Support\Facades\Auth;
 
 class TicketController extends Controller
@@ -227,6 +228,31 @@ class TicketController extends Controller
         }
     }
 
+
+
+    public function createQueues(Request $request) {
+
+        $name = $request->get("name");
+
+        $add_queues = new AdminUser;
+        $add_queues->name = $name;
+        $add_queues_success = $add_queues->save();
+
+        if($add_queues_success) {
+
+            return redirect()->back()->with(["add_queues_success" => "Queue Add successfully"]);
+        }
+        else {
+
+            return redirect()->back()->with(["add_queues_failure" => "Queue Not Added"]); 
+        }
+    }
+
+    public function createAdmin(Request $request) {
+
+        
+
+    }
     public function logout()
     {
         if(session()->has('user') == true) {

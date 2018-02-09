@@ -21,7 +21,8 @@ Route::get("/admin/tickets/{status?}", "TicketController@tickets")->name("ticket
 
 Route::get("/user/logout", "TicketController@logout")->name("logout");
 
-
+Route::post("/admin/addQueues", "TicketController@createQueues")->name("create_queues");
+Route::post("/admin/create", "TicketController@createAdmin")->name("create_admin");
 // Route::get("/admin/tickets", "TicketController@tickets")->name("total_tickets");
 
 Route::get("/admin", "TicketController@admin")->name("admin_page");

@@ -106,12 +106,129 @@
 			
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-md-12">
+			@if(\Session::has("add_queues_success"))
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					{{\Session::get("add_queues_success")}}
+				</div>
+			@endif
+
+			@if(\Session::has("add_queues_failure"))
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					{{\Session::get("add_queues_failure")}}
+				</div>
+			@endif
+			
+		</div>
+	</div>
 	<hr  style="border: solid 1px #6f3f6f;" />
 	<div class="row">
 		<div class="col-md-12">
 			<div class="queue-tab">
 				<div class="row">
 					<div class="col-md-2 col-xs-6 queue-nav">
+						<div class="left-tab-button">
+						
+							<button class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal">Add Queues</button>
+							<button class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal2">Add Users</button>
+						</div>
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h3 class="modal-title ade text-center" id="exampleModalLabel">Add Queues</h3>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<div class="row">
+											<div class="col-md-1"></div>
+											<div class="col-md-10 text-center">
+												
+												<form action="{{ route('create_queues') }}" method="post" class="form-group ticket_form" enctype="multipart/form-data">
+													{{csrf_field()}}
+													
+													<div class="row">
+														<div class="col-md-12">
+															<label for="subject" class="pull-left">Name</label>
+															<input type="text" name="name" class="form-control" required>
+														</div>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+														<input type="submit" class="btn btn-default btn-user" value="submit">
+													</div>
+												</form>
+											</div>
+											<div class="col-md-1"></div>
+										</div>
+										
+									</div>
+									
+								</div>
+							</div>
+						</div>
+
+
+						<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h3 class="modal-title ade text-center" id="exampleModalLabel">Add Users</h3>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<div class="row">
+											<div class="col-md-1"></div>
+											<div class="col-md-10 text-center">
+												
+												<form action="{{ route('create_admin') }}" method="post" class="form-group ticket_form" enctype="multipart/form-data">
+													{{csrf_field()}}
+													
+													<div class="row">
+														<div class="col-md-12">
+															<label for="subject" class="pull-left">Name</label>
+															<input type="text" name="name" class="form-control" required>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-12">
+															<label for="subject" class="pull-left">Email</label>
+															<input type="email" name="eamil" class="form-control" required>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-12">
+															<label for="Admin_Type" class="pull-left">Admin Type</label>
+															<select name="type" class="form-control">
+												
+																<option value="user" class="form-control">User</option>
+																<option value="super" class="form-control">Super</option>
+																
+															</select>
+														</div>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+														<input type="submit" class="btn btn-default btn-user" value="submit">
+													</div>
+												</form>
+											</div>
+											<div class="col-md-1"></div>
+										</div>
+										
+									</div>
+									
+								</div>
+							</div>
+						</div>
+
 						<div>
 							<div class="list-group">
 								@foreach($queues as $queue)
@@ -121,6 +238,7 @@
 								@endforeach
 							</div>
 						</div>
+						
 					</div>
 					<div class="col-md-10 col-xs-6">
 						<div class="table-responsive default">
@@ -165,16 +283,16 @@
 								<tbody>
 									@foreach($queue->tickets as $tickets)
 									<tr class="
-									@if($tickets->status == 'rejected')
+										@if($tickets->status == 'rejected')
 										danger
-									@endif
-									@if($tickets->status == 'inprogress')
+										@endif
+										@if($tickets->status == 'inprogress')
 										warning
-									@endif
-									@if($tickets->status == 'finished')
+										@endif
+										@if($tickets->status == 'finished')
 										success
-									@endif
-									">
+										@endif
+										">
 										<td>
 											{{$tickets->subject}}
 										</td>

@@ -122,12 +122,12 @@
 										<input type="text" name="location" class="form-control" value="{{ \Session::get('user')->location }}" required>
 									</div>
 								</div>
-								<div class="row">
+								<!-- <div class="row">
 									<div class="col-md-12">
 										<label for="picture" class="pull-left">Picture</label>
 										<input type="file" name="picture" class="form-control">
 									</div>
-								</div>
+								</div> -->
 								<!-- <div class="row">
 											<div class="col-md-12">
 														<input type="submit" class="btn btn-default btn-user form-control" value="Submit">
@@ -170,9 +170,9 @@
 							<th>
 								Location
 							</th>
-							<th>
+							<!-- <th>
 								Picture
-							</th>
+							</th> -->
 							<th>
 								Status
 							</th>
@@ -206,9 +206,9 @@
 							<td>
 								{{$user_ticket->location}}
 							</td>
-							<td>
+							<!-- <td>
 								{{$user_ticket->picture}}
-							</td>
+							</td> -->
 							<td>
 								{{$user_ticket->status}}
 							</td>

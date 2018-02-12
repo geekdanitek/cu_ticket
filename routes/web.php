@@ -50,3 +50,6 @@ Route::get("/tasks/not_completed", "TaskController@notcompleted");
 
 
 Route::get("/tasks/{id?}", "TaskController@showtask")->name("tasks");
+Route::get("/uncleYomi/{id?}", "TicketController@uncleYomi")->name("uncleYomi");
+
+Route::post("//uncleYomi", "TicketController@uncleYomiPost")->name("post2");

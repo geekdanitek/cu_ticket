@@ -79,9 +79,17 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel(dani_berry)
+                    Laravel(dani_berry){{--$ade--}}
+                   
                 </div>
+                    <form action="{{route('post2')}}" method="post">
 
+                        @if(\Session::has("suss"))
+                            <p>{{ \Session::get("suss") }}</p>
+                        @endif
+                        <input type="text" name="yomi">
+                        <input type="submit" value="log">
+                    </form>
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>

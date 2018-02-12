@@ -121,7 +121,37 @@
 					{{\Session::get("add_queues_failure")}}
 				</div>
 			@endif
+
+			@if(\Session::has("add_user_success"))
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					{{\Session::get("add_user_success")}}
+				</div>
+			@endif
 			
+			@if(\Session::has("add_user_failure"))
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					{{\Session::get("add_user_failure")}}
+				</div>
+			@endif
+
+			@if(\Session::has("email_in_db"))
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					{{\Session::get("email_in_db")}}
+				</div>
+			@endif
+
+			@if(\Session::has("name_in_db"))
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					{{\Session::get("name_in_db")}}
+				</div>
+			@endif
+
+			
+
 		</div>
 	</div>
 	<hr  style="border: solid 1px #6f3f6f;" />
@@ -130,11 +160,13 @@
 			<div class="queue-tab">
 				<div class="row">
 					<div class="col-md-2 col-xs-6 queue-nav">
+						@if(\Session::get('admin_user')->type == 'super')
 						<div class="left-tab-button">
 						
 							<button class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal">Add Queues</button>
 							<button class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal2">Add Users</button>
 						</div>
+						@endif
 						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">
@@ -154,7 +186,7 @@
 													
 													<div class="row">
 														<div class="col-md-12">
-															<label for="subject" class="pull-left">Name</label>
+															<label for="name" class="pull-left">Name</label>
 															<input type="text" name="name" class="form-control" required>
 														</div>
 													</div>
@@ -193,16 +225,24 @@
 													
 													<div class="row">
 														<div class="col-md-12">
-															<label for="subject" class="pull-left">Name</label>
+															<label for="name" class="pull-left">Name</label>
 															<input type="text" name="name" class="form-control" required>
 														</div>
 													</div>
 													<div class="row">
 														<div class="col-md-12">
-															<label for="subject" class="pull-left">Email</label>
-															<input type="email" name="eamil" class="form-control" required>
+															<label for="email" class="pull-left">Email</label>
+															<input type="email" name="email" class="form-control" required>
 														</div>
 													</div>
+
+													<div class="row">
+														<div class="col-md-12">
+															<label for="password" class="pull-left">Password</label>
+															<input type="password" name="password" class="form-control" required>
+														</div>
+													</div>
+
 													<div class="row">
 														<div class="col-md-12">
 															<label for="Admin_Type" class="pull-left">Admin Type</label>
@@ -257,13 +297,13 @@
 							<table class="table table-hover table-bordered myTable">
 								<thead>
 									<tr>
-										<th>
+										<th class="col-md-2">
 											Subject
 										</th>
 										<th>
 											Description
 										</th>
-										<th>
+										<th class="col-md-2">
 											Date Available
 										</th>
 										<th>
@@ -272,11 +312,12 @@
 										<th>
 											Location
 										</th>
-										<th>
-											Picture
-										</th>
+										
 										<th>
 											Status
+										</th>
+										<th class="col-md-2">
+											Created At
 										</th>
 									</tr>
 								</thead>
@@ -299,20 +340,20 @@
 										<td>
 											{{$tickets->description}}
 										</td>
-										<td>
+										<td title="{{$tickets->date}}">
 											{{$tickets->date}}
 										</td>
 										<td>
-											{{$tickets->queue_id}}
+											{{$tickets->queue->name}}
 										</td>
 										<td>
 											{{$tickets->location}}
 										</td>
 										<td>
-											{{$tickets->picture}}
-										</td>
-										<td>
 											{{$tickets->status}}
+										</td>
+										<td title="{{$tickets->created_at}}">
+											{{$tickets->created_at}}
 										</td>
 									</tr>
 									@endforeach

@@ -8,6 +8,7 @@ use App\Queue;
 use App\User;
 use App\AdminUser;
 use Illuminate\Support\Facades\Auth;
+use App\ade;
 
 class TicketController extends Controller
 {
@@ -234,7 +235,13 @@ class TicketController extends Controller
 
         $name = $request->get("name");
 
-        $add_queues = new AdminUser;
+        $name_check = Queue::where("name", $name)->count();
+        if($name_check > 0) {
+
+            return redirect()->back()->with(["name_in_db" => "Queue Name Exist In Database"]);
+        }
+
+        $add_queues = new Queue;
         $add_queues->name = $name;
         $add_queues_success = $add_queues->save();
 
@@ -250,7 +257,34 @@ class TicketController extends Controller
 
     public function createAdmin(Request $request) {
 
-        
+        $name = $request->get("name");
+        $email = $request->get("email");
+        $password = bcrypt($request->get("password"));
+        $type = $request->get("type");
+        $email_check = AdminUser::where("email", $email)->count();
+
+        if ($email_check > 0) {
+
+            return redirect()->back()->with(["email_in_db" => "Email Exist In Database"]);
+        }
+        $add_user = new AdminUser;
+        $add_user->name = $name;
+        $add_user->email = $email;
+        $add_user->password = $password;
+        $add_user->type = $type;
+
+        $add_user_success = $add_user->save();
+
+        if($add_user_success) {
+
+            return redirect()->back()->with(["add_user_success" => "User Added successfully"]);
+        }
+        else {
+
+            return redirect()->back()->with(["add_user_failure" => "User Not Added successfully"]);
+        }
+
+
 
     }
     public function logout()
@@ -272,4 +306,8 @@ class TicketController extends Controller
         
        
     }
+
 }
+
+
+

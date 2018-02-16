@@ -34,6 +34,13 @@
 										{{ \Session::get("staffID_in_db") }}
 									</div>
 									@endif
+									@if(\Session::has('email_domain_not_trusted'))
+									<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
+										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										{{ \Session::get("email_domain_not_trusted") }}
+									</div>
+									@endif
+
 								</div>
 							</div>
 							<div class="row">

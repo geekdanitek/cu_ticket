@@ -91,7 +91,7 @@ class TicketController extends Controller
 
             return redirect()->route('admin_login')->with(["not_logged_in" => "Please Login In To Continue", "type" => "danger"]);
         }
-        
+
         $passed['name']= "Admin";
         $passed['queues'] = Queue::get();
 
@@ -130,6 +130,20 @@ class TicketController extends Controller
         $email = $request->get("email");
         $matric_no = $request->get("matric_no");
         $staff_id = $request->get("staff_id");
+
+        //form email input checking
+
+        $e = explode("@",$email);
+
+        $em = ["gmail.com", "covenantuniversity.edu.ng"];
+
+        if(!in_array($e[1], $em)) {
+
+            return redirect()->back()->with(["email_domain_not_trusted" => "Please Use A Valid Email", "type" => "danger"]);
+        }
+        
+
+
 
         $email_check = User::where('email', $email)->count();
         if ($email_check > 0) {

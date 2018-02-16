@@ -169,13 +169,13 @@
 				<table class="table table-hover myTable">
 					<thead>
 						<tr>
-							<th>
+							<th class="col-md-2">
 								Subject
 							</th>
 							<th>
 								Description
 							</th>
-							<th>
+							<th class="col-md-2">
 								Date Available
 							</th>
 							<th>
@@ -190,7 +190,7 @@
 							<th>
 								Status
 							</th>
-							<th>
+							<th class="col-md-2">
 								Created At
 							</th>
 						</tr>
@@ -208,13 +208,13 @@
 								success
 							@endif
 						">
-							<td class="col-md-2">
+							<td>
 								{{$user_ticket->subject}}
 							</td>
 							<td>
 								{{$user_ticket->description}}
 							</td>
-							<td class="col-md-2">
+							<td title="{{$user_ticket->date}}">
 								{{$user_ticket->date->diffForHumans()}}
 							</td>
 							<td>
@@ -229,7 +229,7 @@
 							<td>
 								{{$user_ticket->status}}
 							</td>
-							<td class="col-md-2" title="{{$user_ticket->created_at}}">
+							<td title="{{$user_ticket->created_at}}">
 								{{$user_ticket->created_at->diffForHumans()}}
 							</td>
 						</tr>

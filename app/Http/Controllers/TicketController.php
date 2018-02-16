@@ -84,7 +84,14 @@ class TicketController extends Controller
         return view("cu_ticket_admin", $passed);
     }
     public function tickets($status = 'all')
+
     {
+
+         if(!session()->has('admin_user') == true) {
+
+            return redirect()->route('admin_login')->with(["not_logged_in" => "Please Login In To Continue", "type" => "danger"]);
+        }
+        
         $passed['name']= "Admin";
         $passed['queues'] = Queue::get();
 

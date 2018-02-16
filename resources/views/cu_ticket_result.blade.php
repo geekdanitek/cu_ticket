@@ -43,12 +43,12 @@
                                         Description
                                     </th>
                                     <th class="col-md-2">
-                                        Time
+                                        Date Available
                                     </th>
                                     <th>
                                         Queue
                                     </th>
-                                    <th>
+                                    <th class="col-md-2">
                                         Location
                                     </th>
                                    <!--  <th>
@@ -56,6 +56,9 @@
                                     </th> -->
                                     <th>
                                         Status
+                                    </th>
+                                    <th class="col-md-2">
+                                        Created At
                                     </th>
                                     <th class="">
                                         Action
@@ -74,8 +77,8 @@
                                                     {{ substr($ticket->description, 0, 30)."..." }}
                                             </a>
                                         </td>
-                                        <td>
-                                            {{$ticket->date}}
+                                        <td title="{{$ticket->date}}">
+                                            {{$ticket->date->diffForHumans()}}
                                         </td>
                                         <td>
                                             {{$ticket->queue->name}}
@@ -88,6 +91,9 @@
                                         </td> -->
                                        <td>
                                             {{$ticket->status}}
+                                       </td>
+                                       <td title="{{$ticket->created_at}}">
+                                           {{$ticket->created_at->diffForHumans()}}
                                        </td>
                                        <td>
                                        <div class="btn-group">
@@ -121,31 +127,34 @@
                     <table class="table table-hover table-bordered myTable">
                         <thead>
                             <tr>
-                                <th class="col-md-2">
-                                    Subject
-                                </th>
-                                <th>
-                                    Description
-                                </th>
-                                <th class="col-md-2">
-                                    Time
-                                </th>
-                                <th>
-                                    Queue
-                                </th>
-                                <th>
-                                    Location
-                                </th>
-                                <th>
-                                    Picture
-                                </th>
-                                <th>
-                                    Status
-                                </th>
-                                  <th class="col-md-2">
+                                    <th class="col-md-2">
+                                        Subject
+                                    </th>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <th class="col-md-2">
+                                        Date Available
+                                    </th>
+                                    <th>
+                                        Queue
+                                    </th>
+                                    <th class="col-md-2">
+                                        Location
+                                    </th>
+                                   <!--  <th>
+                                        Picture
+                                    </th> -->
+                                    <th>
+                                        Status
+                                    </th>
+                                    <th class="col-md-2">
+                                        Created At
+                                    </th>
+                                    <th class="">
                                         Action
                                     </th>
-                            </tr>
+                                </tr>
                         </thead>
                         <tbody>
                             <?php
@@ -162,10 +171,13 @@
                                         {{$tickets->subject}}
                                     </td>
                                     <td>
-                                        {{$tickets->description}}
+                                        <a tabindex='0' role='button' class='pop_this' data-trigger='focus' class='btn btn-link' 
+                                                data-toggle='popover' title='Description' data-container='body' data-content='{{$tickets->description}}'>
+                                                    {{ substr($tickets->description, 0, 30)."..." }}
+                                        </a>
                                     </td>
-                                    <td>
-                                        {{$tickets->date}}
+                                    <td title="{{$tickets->date}}">
+                                        {{$tickets->date->diffForHumans()}}
                                     </td>
                                     <td>
                                         {{$tickets->queue->name}}
@@ -173,16 +185,19 @@
                                     <td>
                                         {{$tickets->location}}
                                     </td>
-                                    <td>
+                                   <!--  <td>
                                         {{$tickets->picture}}
-                                    </td>
+                                    </td> -->
                                     <td>
                                         {{$tickets->status}}
+                                    </td>
+                                    <td title="{{$tickets->created_at}}">
+                                        {{$tickets->created_at->diffForHumans()}}
                                     </td>
                                     <td>
                                        <div class="btn-group">
 
-                                         <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                         <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span>Change Status</span> <span class="caret"></span>
                                         </button>
                                             <!-- <button type="button" class="btn btn-danger">Change Status</button> -->

@@ -18,7 +18,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			@if(\Session::has("failure"))
-				<div class="alert alert-danger alert-dismissible" role="alert">
+				<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					{{\Session::get("failure")}}
 				</div>
@@ -28,7 +28,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			@if(\Session::has("success"))
-				<div class="alert alert-success alert-dismissible" role="alert">
+				<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					{{\Session::get("success")}}
 				</div>
@@ -36,6 +36,20 @@
 		</div>
 	</div>
 
+	<div class="row">
+		<div class="col-md-2"></div>
+			<div class="col-md-8">
+			<div class="btn-group btn-group-justified btn-user-status">
+				<a href="#" class="btn btn-default active status-select" data-link="all">All</a>
+				<a href="#" class="btn btn-default status-select" data-link="new">New</a>
+				<a href="#" class="btn btn-default status-select" data-link="inprogress">Inprogress</a>
+				<a href="#" class="btn btn-default status-select" data-link="rejected">Rejected</a>
+				<a href="#" class="btn btn-default status-select" data-link="finished">Accepted</a>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+		<hr style="border: solid 1px #6f3f6f;">
 	<div class="row">
 		<div class="col-md-6">
 			<h3 class="pull-left">Your Tickets</h3>
@@ -151,7 +165,7 @@
 	
 	<div class="row">
 		<div class="col-md-12">
-			<div class="table-responsive">
+			<div class="table-responsive myTableSelect" id="table_all">
 				<table class="table table-hover myTable">
 					<thead>
 						<tr>
@@ -176,6 +190,9 @@
 							<th>
 								Status
 							</th>
+							<th>
+								Created At
+							</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -198,7 +215,7 @@
 								{{$user_ticket->description}}
 							</td>
 							<td class="col-md-2">
-								{{$user_ticket->date}}
+								{{$user_ticket->date->diffForHumans()}}
 							</td>
 							<td>
 								{{$user_ticket->queue->name}}
@@ -212,12 +229,299 @@
 							<td>
 								{{$user_ticket->status}}
 							</td>
+							<td class="col-md-2" title="{{$user_ticket->created_at}}">
+								{{$user_ticket->created_at->diffForHumans()}}
+							</td>
 						</tr>
 						@endforeach
 					</tbody>
 				</table>
 			</div>
 		</div>
+
+		<div class="col-md-12">
+			
+			<div class="table-responsive myTableSelect" id="table_new">
+				<table class="table table-hover myTable">
+					<thead>
+						<tr>
+							<th>
+								Subject
+							</th>
+							<th>
+								Description
+							</th>
+							<th>
+								Date Available
+							</th>
+							<th>
+								Queue
+							</th>
+							<th>
+								Location
+							</th>
+							<!-- <th>
+								Picture
+							</th> -->
+							<th>
+								Status
+							</th>
+							<th>
+								Created At
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach($users_ticket_new as $user_ticket)
+						<tr>
+							<td class="col-md-2">
+								{{$user_ticket->subject}}
+							</td>
+							<td>
+								{{$user_ticket->description}}
+							</td>
+							<td class="col-md-2">
+								{{$user_ticket->date->diffForHumans()}}
+							</td>
+							<td>
+								{{$user_ticket->queue->name}}
+							</td>
+							<td>
+								{{$user_ticket->location}}
+							</td>
+							<!-- <td>
+								{{$user_ticket->picture}}
+							</td> -->
+							<td>
+								{{$user_ticket->status}}
+							</td>
+							<td class="col-md-2" title="{{$user_ticket->created_at}}">
+								{{$user_ticket->created_at->diffForHumans()}}
+							</td>
+						</tr>
+						@endforeach
+					</tbody>
+				</table>
+			</div>
+			
+		</div>
+
+		<div class="col-md-12">
+			
+			<div class="table-responsive myTableSelect" id="table_inprogress">
+				<table class="table table-hover myTable">
+					<thead>
+						<tr>
+							<th>
+								Subject
+							</th>
+							<th>
+								Description
+							</th>
+							<th>
+								Date Available
+							</th>
+							<th>
+								Queue
+							</th>
+							<th>
+								Location
+							</th>
+							<!-- <th>
+								Picture
+							</th> -->
+							<th>
+								Status
+							</th>
+							<th>
+								Created At
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach($users_ticket_inprogress as $user_ticket)
+						<tr>
+							<td class="col-md-2">
+								{{$user_ticket->subject}}
+							</td>
+							<td>
+								{{$user_ticket->description}}
+							</td>
+							<td class="col-md-2">
+								{{$user_ticket->date->diffForHumans()}}
+							</td>
+							<td>
+								{{$user_ticket->queue->name}}
+							</td>
+							<td>
+								{{$user_ticket->location}}
+							</td>
+							<!-- <td>
+								{{$user_ticket->picture}}
+							</td> -->
+							<td>
+								{{$user_ticket->status}}
+							</td>
+							<td class="col-md-2" title="{{$user_ticket->created_at}}">
+								{{$user_ticket->created_at->diffForHumans()}}
+							</td>
+						</tr>
+						@endforeach
+					</tbody>
+				</table>
+			</div>
+			
+		</div>
+
+		<div class="col-md-12">
+			
+			<div class="table-responsive myTableSelect" id="table_rejected">
+				<table class="table table-hover myTable">
+					<thead>
+						<tr>
+							<th>
+								Subject
+							</th>
+							<th>
+								Description
+							</th>
+							<th>
+								Date Available
+							</th>
+							<th>
+								Queue
+							</th>
+							<th>
+								Location
+							</th>
+							<!-- <th>
+								Picture
+							</th> -->
+							<th>
+								Status
+							</th>
+							<th>
+								Created At
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach($users_ticket_rejected as $user_ticket)
+						<tr>
+							<td class="col-md-2">
+								{{$user_ticket->subject}}
+							</td>
+							<td>
+								{{$user_ticket->description}}
+							</td>
+							<td class="col-md-2">
+								{{$user_ticket->date->diffForHumans()}}
+							</td>
+							<td>
+								{{$user_ticket->queue->name}}
+							</td>
+							<td>
+								{{$user_ticket->location}}
+							</td>
+							<!-- <td>
+								{{$user_ticket->picture}}
+							</td> -->
+							<td>
+								{{$user_ticket->status}}
+							</td>
+							<td class="col-md-2" title="{{$user_ticket->created_at}}">
+								{{$user_ticket->created_at->diffForHumans()}}
+							</td>
+						</tr>
+						@endforeach
+					</tbody>
+				</table>
+			</div>
+			
+		</div>
+
+				<div class="col-md-12">
+			
+			<div class="table-responsive myTableSelect" id="table_finished">
+				<table class="table table-hover myTable">
+					<thead>
+						<tr>
+							<th>
+								Subject
+							</th>
+							<th>
+								Description
+							</th>
+							<th>
+								Date Available
+							</th>
+							<th>
+								Queue
+							</th>
+							<th>
+								Location
+							</th>
+							<!-- <th>
+								Picture
+							</th> -->
+							<th>
+								Status
+							</th>
+							<th>
+								Created At
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach($users_ticket_finished as $user_ticket)
+						<tr>
+							<td class="col-md-2">
+								{{$user_ticket->subject}}
+							</td>
+							<td>
+								{{$user_ticket->description}}
+							</td>
+							<td class="col-md-2">
+								{{$user_ticket->date->diffForHumans()}}
+							</td>
+							<td>
+								{{$user_ticket->queue->name}}
+							</td>
+							<td>
+								{{$user_ticket->location}}
+							</td>
+							<!-- <td>
+								{{$user_ticket->picture}}
+							</td> -->
+							<td>
+								{{$user_ticket->status}}
+							</td>
+							<td class="col-md-2" title="{{$user_ticket->created_at}}">
+								{{$user_ticket->created_at->diffForHumans()}}
+							</td>
+						</tr>
+						@endforeach
+					</tbody>
+				</table>
+			</div>
+			
+		</div>
+
 	</div>
 </div>
+@endsection
+@section('js')
+	<script type="text/javascript">
+		$(".myTableSelect").hide();
+		 $("#table_all").show();             
+        $(".status-select").click(function(event) {
+		$(".status-select").removeClass('active');
+		$(this).addClass('active');
+		var name = $(this).attr('data-link');
+		$(".myTableSelect").hide();
+		$("#table_all").hide();
+		$("#table_" + name).show();
+		
+	});
+	</script>
 @endsection

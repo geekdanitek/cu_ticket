@@ -51,13 +51,13 @@
                                     <th>
                                         Location
                                     </th>
-                                    <th>
+                                   <!--  <th>
                                         Picture
-                                    </th>
+                                    </th> -->
                                     <th>
                                         Status
                                     </th>
-                                    <th class="col-md-2">
+                                    <th class="">
                                         Action
                                     </th>
                                 </tr>
@@ -69,7 +69,10 @@
                                             {{$ticket->subject}}
                                         </td>
                                         <td>
-                                            {{$ticket->description}}
+                                            <a tabindex='0' role='button' class='pop_this' data-trigger='focus' class='btn btn-link' 
+                                                data-toggle='popover' title='Description' data-container='body' data-content='{{$ticket->description}}'>
+                                                    {{ substr($ticket->description, 0, 30)."..." }}
+                                            </a>
                                         </td>
                                         <td>
                                             {{$ticket->date}}
@@ -80,16 +83,16 @@
                                         <td>
                                             {{$ticket->location}}
                                         </td>
-                                        <td>
+                                        <!-- <td>
                                             {{$ticket->picture}}
-                                        </td>
+                                        </td> -->
                                        <td>
                                             {{$ticket->status}}
                                        </td>
                                        <td>
                                        <div class="btn-group">
 
-                                         <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                         <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                   <span>Change Status</span> <span class="caret"></span>
                                     </button>
 
@@ -208,7 +211,16 @@
 
             @section("js")
                 <script type="text/javascript">
+
+                    $(document).ready(function() {
+                        $('.pop_this').each(function(){
+                            $(this).popover();
+                        });
+                    });
+
                     $(".queue_tables").hide();
+
+
                     
 
                     $(".filter").click(function(event) {

@@ -17,14 +17,14 @@
 							<div class="row">
 								<div class="col-md-12">
 									@if(\Session::has('login_error'))
-									<div class="alert alert-warning alert-dismissible" role="alert">
+									<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
 										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 										{{ \Session::get("login_error") }}
 									</div>
 									@endif
 
 									@if(\Session::has('not_logged_in'))
-									<div class="alert alert-warning alert-dismissible" role="alert">
+									<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
 										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 										{{ \Session::get("not_logged_in") }}
 									</div>
@@ -32,14 +32,14 @@
 
 
 									@if(\Session::has('logout_success'))
-									<div class="alert alert-success alert-dismissible" role="alert">
+									<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
 										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 										{{ \Session::get('logout_success') }}
 									</div>
 									@endif
 
 									@if(\Session::has('reg_success'))
-									<div class="alert alert-success alert-dismissible" role="alert">
+									<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
 										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 										{{ \Session::get('reg_success') }}
 									</div>

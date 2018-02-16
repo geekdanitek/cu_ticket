@@ -9,6 +9,10 @@ class Ticket extends Model
     //
     protected $table = "ticket";
 
+    protected $dates = [
+    	'date'
+    ];
+
     public function queue()
      {
 

@@ -109,42 +109,42 @@
 	<div class="row">
 		<div class="col-md-12">
 			@if(\Session::has("add_queues_success"))
-				<div class="alert alert-danger alert-dismissible" role="alert">
+				<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					{{\Session::get("add_queues_success")}}
 				</div>
 			@endif
 
 			@if(\Session::has("add_queues_failure"))
-				<div class="alert alert-danger alert-dismissible" role="alert">
+				<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					{{\Session::get("add_queues_failure")}}
 				</div>
 			@endif
 
 			@if(\Session::has("add_user_success"))
-				<div class="alert alert-danger alert-dismissible" role="alert">
+				<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					{{\Session::get("add_user_success")}}
 				</div>
 			@endif
 			
 			@if(\Session::has("add_user_failure"))
-				<div class="alert alert-danger alert-dismissible" role="alert">
+				<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					{{\Session::get("add_user_failure")}}
 				</div>
 			@endif
 
 			@if(\Session::has("email_in_db"))
-				<div class="alert alert-danger alert-dismissible" role="alert">
+				<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					{{\Session::get("email_in_db")}}
 				</div>
 			@endif
 
 			@if(\Session::has("name_in_db"))
-				<div class="alert alert-danger alert-dismissible" role="alert">
+				<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					{{\Session::get("name_in_db")}}
 				</div>
@@ -341,7 +341,7 @@
 											{{$tickets->description}}
 										</td>
 										<td title="{{$tickets->date}}">
-											{{$tickets->date}}
+											{{$tickets->date->diffForHumans()}}
 										</td>
 										<td>
 											{{$tickets->queue->name}}
@@ -353,7 +353,7 @@
 											{{$tickets->status}}
 										</td>
 										<td title="{{$tickets->created_at}}">
-											{{$tickets->created_at}}
+											{{$tickets->created_at->diffForHumans()}}
 										</td>
 									</tr>
 									@endforeach

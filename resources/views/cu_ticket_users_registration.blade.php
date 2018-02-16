@@ -17,19 +17,19 @@
 							<div class="row">
 								<div class="col-md-12">
 									@if(\Session::has('email_in_db'))
-									<div class="alert alert-warning alert-dismissible" role="alert">
+									<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
 										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 										{{ \Session::get("email_in_db") }}
 									</div>
 									@endif
 									@if(\Session::has('matric_in_db'))
-									<div class="alert alert-warning alert-dismissible" role="alert">
+									<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
 										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 										{{ \Session::get("matric_in_db") }}
 									</div>
 									@endif
 									@if(\Session::has('staffID_in_db'))
-									<div class="alert alert-warning alert-dismissible" role="alert">
+									<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
 										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 										{{ \Session::get("staffID_in_db") }}
 									</div>

@@ -22,11 +22,15 @@ class TicketController extends Controller
     public function user()
     {
         if (!session()->has('user')) {
-            return redirect()->route("index")->with(["not_logged_in" => "Pls Login In"]);
+            return redirect()->route("index")->with(["not_logged_in" => "Please Login In To Continue", "type" => "danger"]);
         }
 
 
         $passed['users_ticket'] = Ticket::where("user_id", \Session::get('user')->id)->orderBy("created_at", "DESC")->get();
+        $passed['users_ticket_new'] = Ticket::where("user_id", \Session::get('user')->id)->where("status", "new")->get();
+        $passed['users_ticket_inprogress'] = Ticket::where("user_id", \Session::get('user')->id)->where("status", "inprogress")->get();
+        $passed['users_ticket_rejected'] = Ticket::where("user_id", \Session::get('user')->id)->where("status", "rejected")->get();
+        $passed['users_ticket_finished'] = Ticket::where("user_id", \Session::get('user')->id)->where("status", "finished")->get();
         $passed['queues'] = Queue::get();
         $passed["name"] = "User";
         // dd($passed);
@@ -56,7 +60,7 @@ class TicketController extends Controller
         }
         else {
 
-            return redirect()->route('admin_login')->with(["login_error" => "Email or password invalid"]);
+            return redirect()->route('admin_login')->with(["login_error" => "Email or password invalid", "type" => "danger"]);
         }
 
     }
@@ -64,7 +68,7 @@ class TicketController extends Controller
     public function admin() {
         if(!session()->has('admin_user') == true) {
 
-            return redirect()->route('admin_login')->with(["not_logged_in" => "Pls Login In"]);
+            return redirect()->route('admin_login')->with(["not_logged_in" => "Please Login In To Continue", "type" => "danger"]);
         }
 
         $passed['tickets_table'] = Ticket::orderBy("created_at", "ASC")->get();
@@ -122,18 +126,18 @@ class TicketController extends Controller
 
         $email_check = User::where('email', $email)->count();
         if ($email_check > 0) {
-            return redirect()->back()->with(["email_in_db" => "Email exist in Database"]);
+            return redirect()->back()->with(["email_in_db" => "Email exist in Database", "type" => "danger"]);
         }
 
         if ($request->get('type') == 'staff') {
             $email_check = User::where('matric_no', $matric_no)->count();
             if ($email_check > 0) {
-                return redirect()->back()->with(["matric_in_db" => "Matric number exist in Database"]);
+                return redirect()->back()->with(["matric_in_db" => "Matric number exist in Database", "type" => "danger"]);
             }
         } else {
             $email_check = User::where('staff_id', $staff_id)->count();
             if ($email_check > 0) {
-                return redirect()->back()->with(["staffID" => "Staff ID exist in Database"]);
+                return redirect()->back()->with(["staffID" => "Staff ID exist in Database", "type" => "danger"]);
             }
         }
 
@@ -156,7 +160,7 @@ class TicketController extends Controller
         //dd($user->matric_no);
         $user_state = $user->save();
         if ($user_state) {
-            return redirect()->route("login")->with(["reg_success" => "Registration successfull"]);
+            return redirect()->route("login")->with(["reg_success" => "Registration successfull", "type" => "success"]);
         }
     }
 
@@ -177,7 +181,7 @@ class TicketController extends Controller
             // dd(\Auth::user());
             return redirect()->intended("user");
         } else {
-            return redirect()->route("index")->with(["login_error"=>"Username or password invalid"]);
+            return redirect()->route("index")->with(["login_error"=>"Username or password invalid", "type" => "danger"]);
         }
     }
 
@@ -189,14 +193,14 @@ class TicketController extends Controller
         $ticket->date = $request->get("time");
         $ticket->queue_id = $request->get("queue");
         $ticket->location = $request->get("location");
-        $ticket->picture = $request->get("picture", "images/a.png");
+        // $ticket->picture = $request->get("picture", "images/a.png");
         $ticket->user_id =  \Session::get('user')->id;
         $ticket_create = $ticket->save();
 
         if ($ticket_create) {
-            return redirect()->route("user_page")->with(["success" => "TIcket created successfully"]);
+            return redirect()->route("user_page")->with(["success" => "TIcket created successfully", "type" => "success"]);
         } else {
-            return redirect()->route("user_page")->with(["failure" => "Ticket not created"]);
+            return redirect()->route("user_page")->with(["failure" => "Ticket not created", "type" => "danger"]);
         }
     }
 
@@ -225,7 +229,7 @@ class TicketController extends Controller
 
             return redirect()->route("user_page");
         } else {
-            return redirect()->back()->with(["login_error" => "Email or password invalid"]);
+            return redirect()->back()->with(["login_error" => "Email or password invalid", "type" => "danger"]);
         }
     }
 
@@ -238,7 +242,7 @@ class TicketController extends Controller
         $name_check = Queue::where("name", $name)->count();
         if($name_check > 0) {
 
-            return redirect()->back()->with(["name_in_db" => "Queue Name Exist In Database"]);
+            return redirect()->back()->with(["name_in_db" => "Queue Name Exist In Database", "type" => "danger"]);
         }
 
         $add_queues = new Queue;
@@ -247,11 +251,11 @@ class TicketController extends Controller
 
         if($add_queues_success) {
 
-            return redirect()->back()->with(["add_queues_success" => "Queue Add successfully"]);
+            return redirect()->back()->with(["add_queues_success" => "Queue Add successfully", "type" => "success"]);
         }
         else {
 
-            return redirect()->back()->with(["add_queues_failure" => "Queue Not Added"]); 
+            return redirect()->back()->with(["add_queues_failure" => "Queue Not Added", "type" => "danger"]); 
         }
     }
 
@@ -265,7 +269,7 @@ class TicketController extends Controller
 
         if ($email_check > 0) {
 
-            return redirect()->back()->with(["email_in_db" => "Email Exist In Database"]);
+            return redirect()->back()->with(["email_in_db" => "Email Exist In Database", "type" => "danger"]);
         }
         $add_user = new AdminUser;
         $add_user->name = $name;
@@ -277,11 +281,11 @@ class TicketController extends Controller
 
         if($add_user_success) {
 
-            return redirect()->back()->with(["add_user_success" => "User Added successfully"]);
+            return redirect()->back()->with(["add_user_success" => "User Added successfully", "type" => "success"]);
         }
         else {
 
-            return redirect()->back()->with(["add_user_failure" => "User Not Added successfully"]);
+            return redirect()->back()->with(["add_user_failure" => "User Not Added successfully", "type" => "danger"]);
         }
 
 
@@ -293,14 +297,14 @@ class TicketController extends Controller
 
             session()->forget('user');
 
-            return redirect()->route("index")->with(["logout_success" => "Log Out Successfull"]);
+            return redirect()->route("index")->with(["logout_success" => "Logged Out successfully", "type" => "success"]);
         }
 
         if(session()->has('admin_user') == true) {
 
             session()->forget("admin_user");
 
-            return redirect()->route("admin_login")->with(["logout_success" => "Log Out Successfull"]);
+            return redirect()->route("admin_login")->with(["logout_success" => "Log Out successfully", "type" => "success"]);
     
         }
         

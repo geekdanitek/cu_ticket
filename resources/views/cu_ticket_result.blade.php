@@ -58,7 +58,7 @@
                                         Status
                                     </th>
                                     <th class="col-md-2">
-                                        Created At
+                                        Created
                                     </th>
                                     <th class="">
                                         Action
@@ -66,6 +66,15 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if(count($tickets) < 1)
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="alert alert-info text-center" role="alert">
+                                                Table is empty
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endif
                                 @foreach($tickets as $ticket)
                                     <tr>
                                         <td>
@@ -149,7 +158,7 @@
                                         Status
                                     </th>
                                     <th class="col-md-2">
-                                        Created At
+                                        Created
                                     </th>
                                     <th class="">
                                         Action
@@ -157,6 +166,7 @@
                                 </tr>
                         </thead>
                         <tbody>
+
                             <?php
                                 if($status_name == 'all'){
                                     $_tickets = $queue->tickets;
@@ -164,6 +174,15 @@
                                     $_tickets = $queue->tickets()->where('status', $status_name)->get();
                                 }
                             ?>
+                            @if(count($_tickets) < 1)
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="alert alert-info text-center" role="alert">
+                                                Table is empty
+                                            </div>
+                                        </td>
+                                    </tr>
+                            @endif
                             @foreach($_tickets as $tickets)
                             
                                 <tr>

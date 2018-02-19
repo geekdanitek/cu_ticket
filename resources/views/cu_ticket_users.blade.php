@@ -17,25 +17,14 @@
 
 	<div class="row">
 		<div class="col-md-12">
-			@if(\Session::has("failure"))
+			@if(\Session::has('flash_msg'))
 				<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					{{\Session::get("failure")}}
+						{{ \Session::get("flash_msg") }}
 				</div>
 			@endif
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-md-12">
-			@if(\Session::has("success"))
-				<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					{{\Session::get("success")}}
-				</div>
-			@endif
-		</div>
-	</div>
-
 	<div class="row">
 		<div class="col-md-2"></div>
 			<div class="col-md-8">
@@ -125,7 +114,7 @@
 										<label for="queues" class="pull-left">Queues</label>
 										<select name="queue" class="form-control">
 											@foreach($queues as $queue)
-											<option value="{{ $queue->id }}">{{ $queue->name }}</option>
+												<option value="{{ $queue->id }}">{{ $queue->name }}</option>
 											@endforeach
 										</select>
 									</div>
@@ -191,11 +180,20 @@
 								Status
 							</th>
 							<th class="col-md-2">
-								Created At
+								Created
 							</th>
 						</tr>
 					</thead>
 					<tbody>
+						@if(count($users_ticket) < 1)
+						<tr>
+							<td colspan="7">
+								<div class="alert alert-info text-center" role="alert">
+									Table is empty
+								</div>
+							</td>
+						</tr>
+						@endif
 						@foreach($users_ticket as $user_ticket)
 						<tr class="
 							@if($user_ticket->status == 'rejected')
@@ -267,11 +265,20 @@
 								Status
 							</th>
 							<th>
-								Created At
+								Created
 							</th>
 						</tr>
 					</thead>
 					<tbody>
+						@if(count($users_ticket_new) < 1)
+						<tr>
+							<td colspan="7">
+								<div class="alert alert-info text-center" role="alert">
+									Table is empty
+								</div>
+							</td>
+						</tr>
+						@endif
 						@foreach($users_ticket_new as $user_ticket)
 						<tr>
 							<td class="col-md-2">
@@ -334,11 +341,20 @@
 								Status
 							</th>
 							<th>
-								Created At
+								Created
 							</th>
 						</tr>
 					</thead>
 					<tbody>
+						@if(count($users_ticket_inprogress) < 1)
+						<tr>
+							<td colspan="7">
+								<div class="alert alert-info text-center" role="alert">
+									Table is empty
+								</div>
+							</td>
+						</tr>
+						@endif
 						@foreach($users_ticket_inprogress as $user_ticket)
 						<tr>
 							<td class="col-md-2">
@@ -401,11 +417,20 @@
 								Status
 							</th>
 							<th>
-								Created At
+								Created
 							</th>
 						</tr>
 					</thead>
 					<tbody>
+						@if(count($users_ticket_rejected) < 1)
+						<tr>
+							<td colspan="7">
+								<div class="alert alert-info text-center" role="alert">
+									Table is empty
+								</div>
+							</td>
+						</tr>
+						@endif
 						@foreach($users_ticket_rejected as $user_ticket)
 						<tr>
 							<td class="col-md-2">
@@ -468,11 +493,20 @@
 								Status
 							</th>
 							<th>
-								Created At
+								Created
 							</th>
 						</tr>
 					</thead>
 					<tbody>
+						@if(count($users_ticket_finished) < 1)
+						<tr>
+							<td colspan="7">
+								<div class="alert alert-info text-center" role="alert">
+									Table is empty
+								</div>
+							</td>
+						</tr>
+						@endif
 						@foreach($users_ticket_finished as $user_ticket)
 						<tr>
 							<td class="col-md-2">

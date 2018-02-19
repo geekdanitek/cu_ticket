@@ -16,26 +16,13 @@
 
 							<div class="row">
 								<div class="col-md-12">
-									@if(\Session::has('login_error'))
+									@if(\Session::has('flash_msg'))
 									<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
 										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										{{ \Session::get("login_error") }}
+										{{ \Session::get("flash_msg") }}
 									</div>
 									@endif
 
-									@if(\Session::has('not_logged_in'))
-									<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
-										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										{{ \Session::get("not_logged_in") }}
-									</div>
-									@endif
-
-									@if(\Session::has('logout_success'))
-									<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
-										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										{{ \Session::get('logout_success') }}
-									</div>
-									@endif
 								</div>
 							</div>
 
@@ -58,7 +45,7 @@
 										<input type="password" class="form-control" name="password" required>
 										<br />
 										<input type="submit" class="btn btn-primary btn-login" value="Login">
-										<small class="text-right"><a href="#">Forgot Password</a></small>
+										<!-- <small class="text-right"><a href="#">Forgot Password</a></small> -->
 									</form>
 								</div>
 						    </div>

@@ -22,7 +22,7 @@ class TicketController extends Controller
     public function user()
     {
         if (!session()->has('user')) {
-            return redirect()->route("index")->with(["not_logged_in" => "Please Login In To Continue", "type" => "danger"]);
+            return redirect()->route("index")->with(["flash_msg" => "Please login in to continue", "type" => "danger"]);
         }
 
 
@@ -60,7 +60,7 @@ class TicketController extends Controller
         }
         else {
 
-            return redirect()->route('admin_login')->with(["login_error" => "Email or password invalid", "type" => "danger"]);
+            return redirect()->route('admin_login')->with(["flash_msg" => "Email or password invalid", "type" => "danger"]);
         }
 
     }
@@ -68,7 +68,7 @@ class TicketController extends Controller
     public function admin() {
         if(!session()->has('admin_user') == true) {
 
-            return redirect()->route('admin_login')->with(["not_logged_in" => "Please Login In To Continue", "type" => "danger"]);
+            return redirect()->route('admin_login')->with(["flash_msg" => "Please login in to continue", "type" => "danger"]);
         }
 
         $passed['tickets_table'] = Ticket::orderBy("created_at", "ASC")->get();
@@ -89,7 +89,7 @@ class TicketController extends Controller
 
          if(!session()->has('admin_user') == true) {
 
-            return redirect()->route('admin_login')->with(["not_logged_in" => "Please Login In To Continue", "type" => "danger"]);
+            return redirect()->route('admin_login')->with(["flash_msg" => "Please login in to continue", "type" => "danger"]);
         }
 
         $passed['name']= "Admin";
@@ -139,7 +139,7 @@ class TicketController extends Controller
 
         if(!in_array($e[1], $em)) {
 
-            return redirect()->back()->with(["email_domain_not_trusted" => "Please Use A Valid Email", "type" => "danger"]);
+            return redirect()->back()->with(["flash_msg" => "Email <b>$email</b> not accepted", "type" => "danger"]);
         }
         
 
@@ -147,18 +147,18 @@ class TicketController extends Controller
 
         $email_check = User::where('email', $email)->count();
         if ($email_check > 0) {
-            return redirect()->back()->with(["email_in_db" => "Email exist in Database", "type" => "danger"]);
+            return redirect()->back()->with(["flash_msg" => "Email exist in Database", "type" => "danger"]);
         }
 
         if ($request->get('type') == 'staff') {
             $email_check = User::where('matric_no', $matric_no)->count();
             if ($email_check > 0) {
-                return redirect()->back()->with(["matric_in_db" => "Matric number exist in Database", "type" => "danger"]);
+                return redirect()->back()->with(["flash_msg" => "Matric number exist in Database", "type" => "danger"]);
             }
         } else {
             $email_check = User::where('staff_id', $staff_id)->count();
             if ($email_check > 0) {
-                return redirect()->back()->with(["staffID" => "Staff ID exist in Database", "type" => "danger"]);
+                return redirect()->back()->with(["flash_msg" => "Staff ID exist in Database", "type" => "danger"]);
             }
         }
 
@@ -181,7 +181,7 @@ class TicketController extends Controller
         //dd($user->matric_no);
         $user_state = $user->save();
         if ($user_state) {
-            return redirect()->route("login")->with(["reg_success" => "Registration successfull", "type" => "success"]);
+            return redirect()->route("login")->with(["flash_msg" => "Registration successfull", "type" => "success"]);
         }
     }
 
@@ -202,7 +202,7 @@ class TicketController extends Controller
             // dd(\Auth::user());
             return redirect()->intended("user");
         } else {
-            return redirect()->route("index")->with(["login_error"=>"Username or password invalid", "type" => "danger"]);
+            return redirect()->route("index")->with(["flash_msg"=>"Username or password invalid", "type" => "danger"]);
         }
     }
 
@@ -219,9 +219,9 @@ class TicketController extends Controller
         $ticket_create = $ticket->save();
 
         if ($ticket_create) {
-            return redirect()->route("user_page")->with(["success" => "TIcket created successfully", "type" => "success"]);
+            return redirect()->route("user_page")->with(["flash_msg" => "TIcket created successfully", "type" => "success"]);
         } else {
-            return redirect()->route("user_page")->with(["failure" => "Ticket not created", "type" => "danger"]);
+            return redirect()->route("user_page")->with(["flash_msg" => "Ticket not created", "type" => "danger"]);
         }
     }
 
@@ -244,13 +244,14 @@ class TicketController extends Controller
 
         if ($u) {
             $user = Auth::user();
+            //dd($user);
             // $user = User::where("email", $email)->first();
             session()->forget('admin_user');
             session(['user' => $user]);
 
             return redirect()->route("user_page");
         } else {
-            return redirect()->back()->with(["login_error" => "Email or password invalid", "type" => "danger"]);
+            return redirect()->back()->with(["flash_msg" => "Email or password invalid", "type" => "danger"]);
         }
     }
 
@@ -263,7 +264,7 @@ class TicketController extends Controller
         $name_check = Queue::where("name", $name)->count();
         if($name_check > 0) {
 
-            return redirect()->back()->with(["name_in_db" => "Queue Name Exist In Database", "type" => "danger"]);
+            return redirect()->back()->with(["flash_msg" => "Queue Name Exist In Database", "type" => "danger"]);
         }
 
         $add_queues = new Queue;
@@ -272,11 +273,11 @@ class TicketController extends Controller
 
         if($add_queues_success) {
 
-            return redirect()->back()->with(["add_queues_success" => "Queue Add successfully", "type" => "success"]);
+            return redirect()->back()->with(["flash_msg" => "Queue Add successfully", "type" => "success"]);
         }
         else {
 
-            return redirect()->back()->with(["add_queues_failure" => "Queue Not Added", "type" => "danger"]); 
+            return redirect()->back()->with(["flash_msg" => "Queue Not Added", "type" => "danger"]); 
         }
     }
 
@@ -290,7 +291,7 @@ class TicketController extends Controller
 
         if ($email_check > 0) {
 
-            return redirect()->back()->with(["email_in_db" => "Email Exist In Database", "type" => "danger"]);
+            return redirect()->back()->with(["flash_msg" => "Email Exist In Database", "type" => "danger"]);
         }
         $add_user = new AdminUser;
         $add_user->name = $name;
@@ -302,11 +303,11 @@ class TicketController extends Controller
 
         if($add_user_success) {
 
-            return redirect()->back()->with(["add_user_success" => "User Added successfully", "type" => "success"]);
+            return redirect()->back()->with(["flash_msg" => "User Added successfully", "type" => "success"]);
         }
         else {
 
-            return redirect()->back()->with(["add_user_failure" => "User Not Added successfully", "type" => "danger"]);
+            return redirect()->back()->with(["flash_msg" => "User Not Added successfully", "type" => "danger"]);
         }
 
 
@@ -318,14 +319,14 @@ class TicketController extends Controller
 
             session()->forget('user');
 
-            return redirect()->route("index")->with(["logout_success" => "Logged Out successfully", "type" => "success"]);
+            return redirect()->route("index")->with(["flash_msg" => "Logged Out successfully", "type" => "success"]);
         }
 
         if(session()->has('admin_user') == true) {
 
             session()->forget("admin_user");
 
-            return redirect()->route("admin_login")->with(["logout_success" => "Log Out successfully", "type" => "success"]);
+            return redirect()->route("admin_login")->with(["flash_msg" => "Log Out successfully", "type" => "success"]);
     
         }
         

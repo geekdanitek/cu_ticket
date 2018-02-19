@@ -16,28 +16,11 @@
 
 							<div class="row">
 								<div class="col-md-12">
-									@if(\Session::has('email_in_db'))
+
+									@if(\Session::has('flash_msg'))
 									<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
 										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										{{ \Session::get("email_in_db") }}
-									</div>
-									@endif
-									@if(\Session::has('matric_in_db'))
-									<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
-										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										{{ \Session::get("matric_in_db") }}
-									</div>
-									@endif
-									@if(\Session::has('staffID_in_db'))
-									<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
-										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										{{ \Session::get("staffID_in_db") }}
-									</div>
-									@endif
-									@if(\Session::has('email_domain_not_trusted'))
-									<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
-										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										{{ \Session::get("email_domain_not_trusted") }}
+										{{ \Session::get("flash_msg") }}
 									</div>
 									@endif
 
@@ -64,20 +47,21 @@
 										<LABEL for="password">Password</LABEL>
 										<input type="password" class="form-control" name="password" required>
 										<br />
-										<label for="location">Location</label>
-										<input type="text" class="form-control" name="location" required>
+										<label for="location">Which are you?</label>
+											<select name="type" class="form-control" id="type_select">
+												<option value="student">Student</option>
+												<option value="staff">Staff</option>
+											</select>
                                         <br />
-                                        <label for="location">Which are you?</label>
-										<select name="type" class="form-control" id="type_select">
-											<option value="student">Student</option>
-											<option value="staff">Staff</option>
-										</select>
+                                        <input type="text" class="form-control" placeholder="Matric Number" name="matric_no" id="studentInput">
+										<input type="text" class="form-control" style="display: none" placeholder="Staff ID" name="staff_id" id="staffInput">
+	                                        
 										<br />
-										<input type="text" class="form-control" placeholder="Matric Number" name="matric_no" id="studentInput">
-										<input type="text" class="form-control" style="display: none" placeholder="Staff Identity" name="staff_id" id="staffInput">
+											<label for="location">Location</label>
+											<input type="text" class="form-control" id="location" name="location" placeholder="e.g Daniel Hall Room 4" required>
 										<br />
 										<input type="submit" class="btn btn-primary btn-login" value="Register">
-										<small class="text-right"><a href="#">Forgot Password</a></small>
+										<!-- <small class="text-right"><a href="#">Forgot Password</a></small> -->
 									</form>
 								</div>
 						    </div>
@@ -100,9 +84,11 @@
                         if(select_type === 'student'){
                             $("#studentInput").show();
                             $("#staffInput").hide();
+                            $("#location").attr("placeholder", "e.g Daniel Hall Room 4");
                         }else{
                             $("#studentInput").hide();
                             $("#staffInput").show();
+                            $("#location").attr("placeholder", "e.g Block D2");
                         }
                     })
                 });

@@ -108,50 +108,12 @@
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-			@if(\Session::has("add_queues_success"))
+			@if(\Session::has('flash_msg'))
 				<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					{{\Session::get("add_queues_success")}}
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							{{ \Session::get("flash_msg") }}
 				</div>
 			@endif
-
-			@if(\Session::has("add_queues_failure"))
-				<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					{{\Session::get("add_queues_failure")}}
-				</div>
-			@endif
-
-			@if(\Session::has("add_user_success"))
-				<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					{{\Session::get("add_user_success")}}
-				</div>
-			@endif
-			
-			@if(\Session::has("add_user_failure"))
-				<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					{{\Session::get("add_user_failure")}}
-				</div>
-			@endif
-
-			@if(\Session::has("email_in_db"))
-				<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					{{\Session::get("email_in_db")}}
-				</div>
-			@endif
-
-			@if(\Session::has("name_in_db"))
-				<div class="alert alert-{{\Session::get('type', 'info')}} alert-dismissible" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					{{\Session::get("name_in_db")}}
-				</div>
-			@endif
-
-			
-
 		</div>
 	</div>
 	<hr  style="border: solid 1px #6f3f6f;" />
@@ -317,11 +279,20 @@
 											Status
 										</th>
 										<th class="col-md-2">
-											Created At
+											Created
 										</th>
 									</tr>
 								</thead>
 								<tbody>
+								@if(count($queues) < 1)
+									<tr>
+										<td colspan="7">
+											<div class="alert alert-info text-center" role="alert">
+												Table is empty
+											</div>
+										</td>
+									</tr>
+								@endif
 									@foreach($queue->tickets as $tickets)
 									<tr class="
 										@if($tickets->status == 'rejected')

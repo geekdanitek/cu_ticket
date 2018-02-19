@@ -91,7 +91,8 @@
                         }
                         
                         .block h1 {
-                            font-size: 50px;
+                            margin-top: 40px;
+                            font-size: 30px;
                             font-weight: lighter;
                             color: #ffffff;
                             word-break: break-all;

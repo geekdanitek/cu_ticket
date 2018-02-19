@@ -76,7 +76,17 @@
                                     </tr>
                                 @endif
                                 @foreach($tickets as $ticket)
-                                    <tr>
+                                    <tr class="
+                                        @if($ticket->status == 'rejected')
+                                        danger
+                                        @endif
+                                        @if($ticket->status == 'inprogress')
+                                        warning
+                                        @endif
+                                        @if($ticket->status == 'finished')
+                                        success
+                                        @endif
+                                    ">
                                         <td>
                                             {{$ticket->subject}}
                                         </td>

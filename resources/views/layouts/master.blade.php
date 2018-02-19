@@ -4,6 +4,10 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>@yield("title") : CU Ticket System</title>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:700|Open+Sans" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:300" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="{{ url('css/bootstrap.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url('https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url('css/style.css') }}">

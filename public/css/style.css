@@ -179,6 +179,23 @@
                            
                         }
 
+                        .nav-btn-click {
+                            margin-top: 20px;
+                        }
+                        .navbar-toggle {
+                            border-color: #ffffff !important; 
+                             border-radius: 1px !important;
+                             border: none;
+                        }
+                        .navbar-toggle:hover {
+                            background-color: #00a859 !important;
+                        }
+                        .icon-bar {
+                            background-color: #ffffff !important;
+                            width: 30px !important;
+                            height: 5px !important;
+                        }
+
                         table th {
                             font-family: 'Montserrat', sans-serif
                         }
@@ -186,7 +203,12 @@
                             font-family: 'Raleway', sans-serif;
                         }
                        
-                        @media (max-width: 992px) {
+                        @media (max-width: 500px) {
                             .block {
                                 height: 170px;
                             }
+                            .brand-text {
+
+                                font-size: 20px;
+                            }
+                    }

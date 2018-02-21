@@ -211,4 +211,27 @@
 
                                 font-size: 20px;
                             }
+                            .logout-btn {
+                                margin-top: 10px !important;
+                                margin-left: 15px;
+                            }
+                            .right-nav {
+
+                                margin: 5px;
+                            }
+                    }
+                     @media (max-width: 768px) {
+                          
+                            .brand-text {
+
+                                font-size: 20px;
+                            }
+                            .logout-btn {
+                                margin-top: 10px !important;
+                                margin-left: 15px;
+                            }
+                            .right-nav {
+                                
+                                margin: 5px;
+                            }
                     }

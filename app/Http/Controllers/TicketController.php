@@ -251,7 +251,7 @@ class TicketController extends Controller
 
         if ($ticket_create) {
            $queue_type = Queue::find($request->get("queue"));
-            //the part to mail the admin if the $hash_checker_validify is  true 
+            
             $mail_to = \Session::get('user')->email;
 
             $subject = "CU Ticket System";

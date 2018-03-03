@@ -11,7 +11,6 @@
 |
 */
 
-
 Route::get('/', "TicketController@index")->name("index");
 Route::post("/", "TicketController@loginSubmit")->name("login");
 

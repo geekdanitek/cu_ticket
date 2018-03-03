@@ -53,8 +53,8 @@
 												<option value="staff">Staff</option>
 											</select>
                                         <br />
-                                        <input type="text" class="form-control" placeholder="Matric Number" name="matric_no" id="studentInput">
-										<input type="text" class="form-control" style="display: none" placeholder="Staff ID" name="staff_id" id="staffInput">
+                                        <input type="text" class="form-control" placeholder="Matric Number" name="matric_no" id="studentInput" minlength="10" maxlength="10">
+										<input type="text" class="form-control" style="display: none" placeholder="Staff ID" name="staff_id" id="staffInput" minlength="7" maxlength="7">
 	                                        
 										<br />
 											<label for="location">Location</label>

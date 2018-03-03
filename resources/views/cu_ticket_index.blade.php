@@ -43,7 +43,7 @@
 										<input type="password" class="form-control" name="password" required>
 										<br />
 										<input type="submit" class="btn btn-primary btn-login" value="Login">
-										<!-- <small class="text-right"><a href="#">Forgot Password</a></small> -->
+										<small class="text-right"><a href="#">Forgot Password</a></small>
 									</form>
 								</div>
 						    </div>

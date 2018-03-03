@@ -127,23 +127,54 @@ class TicketController extends Controller
 
     public function create(Request $request)
     {
+
         $email = $request->get("email");
+        $type = $request->get("type");
         $matric_no = $request->get("matric_no");
         $staff_id = $request->get("staff_id");
+
+
+
+        //dd([$email, $type, $matric_no, $staff_id]);
 
         //form email input checking
 
         $e = explode("@",$email);
+        $em = ["stu.cu.edu.ng"];
+        $ems = ["covenantuniversity.edu.ng"];
 
-        $em = ["gmail.com", "covenantuniversity.edu.ng"];
+        if($type == 'student' AND !in_array($e[1], $em)) {
 
-        if(!in_array($e[1], $em)) {
+              return redirect()->back()->with(["flash_msg" => "Email <b>$email</b> not accepted", "type" => "danger"]);
+        }
+
+        if($type == 'staff' AND !in_array($e[1], $ems)) {
 
             return redirect()->back()->with(["flash_msg" => "Email <b>$email</b> not accepted", "type" => "danger"]);
-        }
+
+        }  
         
+        if($type == 'staff'){
 
 
+            if(strpos($staff_id, "CU") === false) {
+            return redirect()->back()->with(["flash_msg" => "Staff ID not valid", "type" => "danger"]);
+               }
+        }
+       
+        if ($type == 'staff') {
+
+        $sc = explode("U", $staff_id);
+        $scl = strlen($sc[1]);
+       
+
+            if($scl !== 5) {
+
+             return redirect()->back()->with(["flash_msg" => "Staff ID Length not valid", "type" => "danger"]);            
+           }
+
+        }
+      
 
         $email_check = User::where('email', $email)->count();
         if ($email_check > 0) {
@@ -219,6 +250,30 @@ class TicketController extends Controller
         $ticket_create = $ticket->save();
 
         if ($ticket_create) {
+
+            //the part to mail the admin if the $hash_checker_validify is  true 
+            $mail_to = \Session::get('user')->email;
+
+            $subject = "CU Ticket System";
+
+            $queue_mail = "<h1>"."Dear"." ".\Session::get('user')->name."</h1>";
+            $queue_mail .= "<h4>"."You created a queue"."</h4>";
+            $queue_mail .= "<h4>"."Queue subject: ".$request->get("subject")."</h4>";
+            $queue_mail .= "<h4>"."Queue description: ".$request->get("description")."</h4>";
+            $queue_mail .= "<h4>"."Available Date: ".$request->get("time")."</h4>";
+            $queue_mail .= "<h4>"."Queue Type: ".$request->get("queue")."</h4>";
+            $queue_mail .= "<h4>"."Location: ".$request->get("location")."</h4>";
+            $queue_mail .= "<p>"."At"." ".date("d/m/Y  h:i:s a") ."</p>";
+
+            
+            $header = "CU Ticket System \r\n";
+
+            $header .= "MIME-Version: 1.0\r\n";
+
+            $header .= "Content-type: text/html \r\n";  
+            
+            mail($mail_to, $subject, $queue_mail, $header);
+
             return redirect()->route("user_page")->with(["flash_msg" => "TIcket created successfully", "type" => "success"]);
         } else {
             return redirect()->route("user_page")->with(["flash_msg" => "Ticket not created", "type" => "danger"]);
@@ -273,6 +328,7 @@ class TicketController extends Controller
 
         if($add_queues_success) {
 
+
             return redirect()->back()->with(["flash_msg" => "Queue Add successfully", "type" => "success"]);
         }
         else {
@@ -287,8 +343,17 @@ class TicketController extends Controller
         $email = $request->get("email");
         $password = bcrypt($request->get("password"));
         $type = $request->get("type");
-        $email_check = AdminUser::where("email", $email)->count();
 
+        $e = explode("@",$email);
+        $ems = ["covenantuniversity.edu.ng"];
+
+        if(!in_array($e[1], $ems)) {
+
+              return redirect()->back()->with(["flash_msg" => "Email <b>$email</b> not accepted", "type" => "danger"]);
+        }
+
+
+        $email_check = AdminUser::where("email", $email)->count();
         if ($email_check > 0) {
 
             return redirect()->back()->with(["flash_msg" => "Email Exist In Database", "type" => "danger"]);

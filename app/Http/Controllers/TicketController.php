@@ -250,7 +250,7 @@ class TicketController extends Controller
         $ticket_create = $ticket->save();
 
         if ($ticket_create) {
-
+           $queue_type = Queue::find($request->get("queue"));
             //the part to mail the admin if the $hash_checker_validify is  true 
             $mail_to = \Session::get('user')->email;
 
@@ -261,7 +261,7 @@ class TicketController extends Controller
             $queue_mail .= "<h4>"."Queue subject: ".$request->get("subject")."</h4>";
             $queue_mail .= "<h4>"."Queue description: ".$request->get("description")."</h4>";
             $queue_mail .= "<h4>"."Available Date: ".$request->get("time")."</h4>";
-            $queue_mail .= "<h4>"."Queue Type: ".$request->get("queue")."</h4>";
+            $queue_mail .= "<h4>"."Queue Type: ".$queue_type->name."</h4>";
             $queue_mail .= "<h4>"."Location: ".$request->get("location")."</h4>";
             $queue_mail .= "<p>"."At"." ".date("d/m/Y  h:i:s a") ."</p>";
 

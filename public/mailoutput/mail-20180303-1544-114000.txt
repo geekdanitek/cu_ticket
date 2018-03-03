@@ -1,0 +1,7 @@
+To: sureanchorschools@gmail.com
+Subject: CU Ticket System
+CU Ticket System 
+MIME-Version: 1.0
+Content-type: text/html
+
+<h1>Dear adedeji</h1><h4>You created a queue</h4><h4>Queue subject: post test</h4><h4>Queue description: ayui</h4><h4>Available Date: 2018-03-03</h4><h4>Queue Type: {"id":1,"name":"Electricity","created_at":"2018-02-10 13:44:07","updated_at":"2018-02-10 13:44:07"}</h4><h4>Location: Daniel Hall Bed 2</h4><p>At 03/03/2018  03:43:57 pm</p>

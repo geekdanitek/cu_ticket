@@ -25,14 +25,29 @@ Route::post("/admin/create", "TicketController@createAdmin")->name("create_admin
 // Route::get("/admin/tickets", "TicketController@tickets")->name("total_tickets");
 
 Route::get("/admin", "TicketController@admin")->name("admin_page");
+
 Route::get("/admin/login", "TicketController@adminLogin")->name("admin_login");
+
 Route::post("/admin/login", "TicketController@adminLoginSubmit");
 
+
 Route::get("/user", "TicketController@user")->name("user_page");
+
 Route::get("/user/register", "TicketController@showRegisterPage")->name("register");
+
 Route::post("/user/register", "TicketController@create")->name("create_user");
 
+
 Route::post("/user/ticket", "TicketController@createTicket")->name("create_ticket");
+
+Route::get("/user/reset", "TicketController@reset")->name("reset");
+
+Route::post("/user/reset", "TicketController@resetAction")->name("reset_user");
+
+Route::get("/user/reset/set/{rand}", "TicketController@resetPasswordView")->name("reset_page");
+
+Route::post("/user/reset/set/", "TicketController@resetPassword")->name("reset_action");
+
 
 Route::get("/layouts", function () {
     return view("layouts.admin_master");

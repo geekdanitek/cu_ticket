@@ -1,5 +1,5 @@
 @extends('layouts.master')
-	@section('title', 'Login')
+	@section('title', 'Password Reset')
 		@section('content')
 		
 			<div class="container">
@@ -31,29 +31,20 @@
 							</div>
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<h3 class="panel-title text-center">Login</h3>
+									<h3 class="panel-title text-center">Reset Password</h3>
 								</div>
 								<div class="panel-body">
-									<form action="{{route('login')}}" method="post" class="form-group">
+									<form action="{{route('reset_user')}}" method="post" class="form-group">
 										{{csrf_field()}}
-										<label for="email">Email</label>
+										<label for="email">Input your email address</label>
 										<input type="email" class="form-control" name="email" required>
 										<br />
-										<label for="password">Password</label>
-										<input type="password" class="form-control" name="password" required>
-										<br />
-										<input type="submit" class="btn btn-primary btn-login" value="Login">
-										<small class="text-right"><a href="{{url(route('reset'))}}">Forgot Password</a></small>
+										<input type="submit" class="btn btn-primary btn-login" value="Reset">
+										<!-- <small class="text-right"><a href="#">Forgot Password</a></small> -->
 									</form>
 								</div>
 						    </div>
-						    <div class="row">
-						    	<div class="col-md-12">
-						    		<div class="text-center">
-							  			<a href="{{ route('register') }}" class="text-center"><button class="btn btn-link">Don't have an account? Register here</button></a>
-							  		</div>
-								</div>
-							</div>
+						 
 					</div>
 						<div class="col-md-4"></div>
 				</div>

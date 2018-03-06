@@ -34,16 +34,19 @@
 									<h3 class="panel-title text-center">Reset Password</h3>
 								</div>
 								<div class="panel-body">
-									<form action="{{route('login')}}" method="post" class="form-group">
+									<form action="{{route('reset_action')}}" method="post" class="form-group">
 										{{csrf_field()}}
-										<label for="email">Old Pin</label>
-										<input type="password" class="form-control" name="old_pin" required>
-										<br />
-										<label for="password">New Pin</label>
+										<input type="hidden" name="email" value="{{$email}}" />
+
+										<label for="new_pin">New Pin</label>
 										<input type="password" class="form-control" name="new_pin" required>
 										<br />
+
+										<label for="confirm_pin">Confirm Pin</label>
+										<input type="password" class="form-control" name="confirm_pin" required>
+										<br />
+
 										<input type="submit" class="btn btn-primary btn-login" value="Reset">
-										<!-- <small class="text-right"><a href="#">Forgot Password</a></small> -->
 									</form>
 								</div>
 						    </div>

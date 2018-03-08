@@ -39,7 +39,7 @@ Route::post("/user/register", "TicketController@create")->name("create_user");
 
 
 Route::post("/user/ticket", "TicketController@createTicket")->name("create_ticket");
-
+//route user
 Route::get("/user/reset", "TicketController@reset")->name("reset");
 
 Route::post("/user/reset", "TicketController@resetAction")->name("reset_user");
@@ -47,8 +47,17 @@ Route::post("/user/reset", "TicketController@resetAction")->name("reset_user");
 Route::get("/user/reset/set/{rand}", "TicketController@resetPasswordView")->name("reset_page");
 
 Route::post("/user/reset/set/", "TicketController@resetPassword")->name("reset_action");
+//route user end
 
+//route admin
+Route::get("/admin/reset", "TicketController@resetAdmin")->name("reset_admin");
 
+Route::post("/admin/reset", "TicketController@resetActionAdmin")->name("reset_admin_post");
+
+Route::get("/admin/reset/set/{rand}", "TicketController@resetPasswordViewAdmin")->name("reset_page_admin");
+
+Route::post("/admin/reset/set/", "TicketController@resetPasswordAdmin")->name("reset_action_admin");
+//route admin end
 Route::get("/layouts", function () {
     return view("layouts.admin_master");
 });

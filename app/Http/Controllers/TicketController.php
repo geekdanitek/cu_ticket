@@ -199,12 +199,13 @@ class TicketController extends Controller
         $user->password = bcrypt($request->get("password"));
         $user->location = $request->get("location");
         $user->type = $request->get("type");
-        if ($user->matric_no == null) {
+        
+        if ($request->get("matric_no") == null) {
             $user->matric_no = "";
         } else {
             $user->matric_no = $request->get("matric_no");
         }
-        if ($user->staff_id == null) {
+        if ($request->get("staff_id") == null) {
             $user->staff_id =  "";
         } else {
             $user->staff_id = $request->get("staff_id");
@@ -378,7 +379,7 @@ class TicketController extends Controller
 
 
     }
-
+    //reset password area for the user side
     public function reset() {
 
         return view("cu_ticket_reset");
@@ -426,7 +427,7 @@ class TicketController extends Controller
 
         if(!$resetUser){
 
-            //Not a valid link
+        //Not a valid link ba Enefem group of school, Address : 9-11 Adebayo str off amule - olayemi road, makinde bustop ashipa ayobo
 
             return redirect()->route("reset")->with(["flash_msg" => "The link is not valid", "type" => "danger"]);
 
@@ -450,6 +451,79 @@ class TicketController extends Controller
             
             return redirect()->route("login")->with(["flash_msg" => "Password has been reset. Please Login", "type" => "success"]);
     }
+    //reset password for admin side
+    public function resetAdmin() {
+        return view("cu_ticket_reset_admin");
+    }
+
+    public function resetActionAdmin(Request $request) {
+
+        $email = $request->get("email");
+        $resetUser = AdminUser::where("email", $email)->first();
+    
+        if(!$resetUser) {
+
+            return redirect()->back()->with(["flash_msg" => "Email not in the database", "type" => "danger"]);
+        }
+
+        $reset_rand = str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+
+        $resetUser->reset_password = $reset_rand;
+
+        $resetUser->save();
+
+        $link = route("reset_page_admin", ["rand" => $reset_rand]);
+        //SEND EMAIL
+            $mail_to = $resetUser->email;
+
+            $subject = "CU Ticket System Password Reset";
+
+            $queue_mail = "<h1>"."Dear"." ".$resetUser->name."</h1>";
+            $queue_mail .= "<h4>"."Your Password reset link is"."</h4>";
+            $queue_mail .= "<h4>".$link."</h4>";
+            
+            $header = "CU Ticket System \r\n";
+
+            $header .= "MIME-Version: 1.0\r\n";
+
+            $header .= "Content-type: text/html \r\n";  
+            
+            // mail($mail_to, $subject, $queue_mail, $header);
+
+            return redirect()->back()->with(["flash_msg" => "Email link sent: ".$link, "type" => "success"]);
+    }
+    public function resetPasswordViewAdmin($rand) {
+
+        $resetUser = AdminUser::where("reset_password", $rand)->first();
+
+        if(!$resetUser){
+
+        //Not a valid link
+
+            return redirect()->route("reset")->with(["flash_msg" => "The link is not valid", "type" => "danger"]);
+
+        }
+        $email = $resetUser->email;
+        return view("cu_ticket_reset_password_admin", ["email" => $email]);
+    }
+    public function resetPasswordAdmin(Request $request) {
+            $email = $request->get("email");
+            $new_pin = $request->get("new_pin");
+            $confirm_pin = $request->get("confirm_pin");
+
+            if ($new_pin !== $confirm_pin) {
+                return redirect()->back()->with(["flash_msg" => "Try again! The your new passwords don't match", "type" => "warning"]);
+            }
+
+            $resetUser = AdminUser::where("email", $email)->first();
+            $resetUser->password = bcrypt($confirm_pin);
+            $resetUser->reset_password = null;
+            $resetUser->save();
+            
+            return redirect()->route("admin_login")->with(["flash_msg" => "Password has been reset. Please Login", "type" => "success"]);
+    }
+
+
     public function logout()
     {
         if(session()->has('user') == true) {

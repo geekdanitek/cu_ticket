@@ -1,5 +1,5 @@
 @extends('layouts.master')
-	@section('title', 'Admin Login')
+	@section('title', 'Password Reset')
 		@section('content')
 		
 			<div class="container">
@@ -22,10 +22,8 @@
 										{{ \Session::get("flash_msg") }}
 									</div>
 									@endif
-
 								</div>
 							</div>
-
 							<div class="row">
 								<div class="col-md-12">
 									<h3 class="text-center">CU Ticket Registration System</h3>
@@ -33,23 +31,26 @@
 							</div>
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<h3 class="panel-title text-center">Admin Login</h3>
+									<h3 class="panel-title text-center">Reset Password</h3>
 								</div>
 								<div class="panel-body">
-									<form action="{{ route('admin_login') }}" method="POST" class="form-group">
+									<form action="{{route('reset_action_admin')}}" method="post" class="form-group">
 										{{csrf_field()}}
-										<label for="email">Email</label>
-										<input type="email" class="form-control" name="email" required>
+										<input type="hidden" name="email" value="{{$email}}" />
+
+										<label for="new_pin">New Pin</label>
+										<input type="password" class="form-control" name="new_pin" required>
 										<br />
-										<label for="password">Password</label>
-										<input type="password" class="form-control" name="password" required>
+
+										<label for="confirm_pin">Confirm Pin</label>
+										<input type="password" class="form-control" name="confirm_pin" required>
 										<br />
-										<input type="submit" class="btn btn-primary btn-login" value="Login">
-										<small class="text-right"><a href="{{route('reset_admin')}}">Forgot Password</a></small>
+
+										<input type="submit" class="btn btn-primary btn-login" value="Reset">
 									</form>
 								</div>
 						    </div>
-						
+						 
 					</div>
 						<div class="col-md-4"></div>
 				</div>

@@ -44,7 +44,7 @@
 										<label for="Email">Email</label>
 										<input type="email" class="form-control" name="email" required>
 										<br />
-										<LABEL for="password">Password</LABEL>
+										<label for="password">Password</label>
 										<input type="password" class="form-control" name="password" required>
 										<br />
 										<label for="location">Which are you?</label>

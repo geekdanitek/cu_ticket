@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/welcome', 'TaskController@welcome');
 
 Route::get('/', "TicketController@index")->name("index");
 Route::post("/", "TicketController@loginSubmit")->name("login");

@@ -79,8 +79,11 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel(dani_berry){{--$ade--}}
-                   
+                    Laravel(dani_berry)
+                    @foreach($tasks as $task)
+                <li>{{$task->email}}</li>
+                    @endforeach
+                <a href="{{route('index')}}">hey</a>
                 </div>
                     <form action="{{route('post2')}}" method="post">
 
